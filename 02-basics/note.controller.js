@@ -12,7 +12,7 @@ const addNote = async (title) => {
   };
   notes.push(note);
   await fs.writeFile(notesPath, JSON.stringify(notes));
-  console.log(chalk.green('Note was added'));
+  console.log(chalk.green('OK. Note was added'));
 };
 
 const getNotes = async () => {
