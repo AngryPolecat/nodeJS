@@ -4,6 +4,15 @@ const path = require('path');
 
 const notesPath = path.join(__dirname, 'db.json');
 
+const writeNotesToFile = async (notes) => await fs.writeFile(notesPath, JSON.stringify(notes));
+
+const removeNote = async (id) => {
+  const notes = await getNotes();
+  const newNotes = notes.filter((note) => note.id != id);
+  await writeNotesToFile(newNotes);
+  console.log(chalk.green('OK. Note was removed'));
+};
+
 const addNote = async (title) => {
   const notes = await getNotes();
   const note = {
@@ -11,7 +20,7 @@ const addNote = async (title) => {
     id: Date.now().toString(),
   };
   notes.push(note);
-  await fs.writeFile(notesPath, JSON.stringify(notes));
+  await writeNotesToFile(notes);
   console.log(chalk.green('OK. Note was added'));
 };
 
@@ -22,11 +31,12 @@ const getNotes = async () => {
 
 const printNotes = async () => {
   const notes = await getNotes();
-  console.log(chalk.blue('This is List notes'));
+  console.log(chalk.blue('Here is the list of notes:'));
   notes.forEach(({ id, title }) => console.log(`id: ${chalk.red(id)} title: ${chalk.yellow(title)}`));
 };
 
 module.exports = {
   addNote,
   printNotes,
+  removeNote,
 };
