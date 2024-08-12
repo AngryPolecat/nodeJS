@@ -1,0 +1,19 @@
+{
+  "name": "02-app",
+  "version": "1.0.0",
+  "description": "This is nodeJS application 02",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "basics"
+  ],
+  "author": "Vitaly Milovidov <mvv.tfoms@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@types/yargs": "^17.0.33",
+    "chalk": "^4.1.2",
+    "yargs": "^17.7.2"
+  }
+}
