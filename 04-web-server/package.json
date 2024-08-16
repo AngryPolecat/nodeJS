@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "serve": "nodemon index.js"
+    "serve": "nodemon index.js",
+    "express": "nodemon index2.js"
   },
   "keywords": [
     "basics"
@@ -14,6 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
