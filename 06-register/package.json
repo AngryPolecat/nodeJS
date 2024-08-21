@@ -1,0 +1,25 @@
+{
+  "name": "02-app",
+  "version": "1.0.0",
+  "description": "This is nodeJS application 02",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "express": "nodemon index.js"
+  },
+  "keywords": [
+    "basics"
+  ],
+  "author": "Vitaly Milovidov <mvv.tfoms@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/yargs": "^17.0.33",
+    "nodemon": "^3.1.4"
+  }
+}
