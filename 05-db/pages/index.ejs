@@ -15,6 +15,10 @@
     <% if(created) { %>
     <div class="alert alert-success">Note has been created!</div>
     <% } %>
+    <!-- \n -->
+    <% if(error) { %>
+    <div class="alert alert-danger">Note was not created :(</div>
+    <% } %>
 
     <div class="container">
       <h2><%=title%></h2>
