@@ -2,8 +2,10 @@ const express = require('express')
 const chalk = require('chalk')
 const path = require('path')
 const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
 const { addNote, getNotes, removeNote, updateNote } = require('./note.controller.js')
-const { addUser } = require('./users.controller.js')
+const { addUser, loginUser } = require('./users.controller.js')
+const { auth } = require('./middlewares/auth.js')
 
 const app = express()
 const port = 3000
@@ -12,6 +14,7 @@ app.set('view engine', 'ejs')
 app.set('views', 'pages')
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(express.static(path.resolve(__dirname, 'public')))
 app.use(
   express.urlencoded({
@@ -45,6 +48,28 @@ app.get('/register', async (req, res) => {
   })
 })
 
+app.post('/login', async (req, res) => {
+  try {
+    const token = await loginUser(req.body.email, req.body.password)
+    res.cookie('token', token)
+    res.redirect('/')
+  } catch (e) {
+    res.render('login', {
+      title: 'Express App',
+      error: e.message,
+    })
+  }
+})
+
+app.get('/login', async (req, res) => {
+  res.render('login', {
+    title: 'Express App',
+    error: false,
+  })
+})
+
+app.use(auth)
+
 app.get('/', async (req, res) => {
   res.render('index', {
     title: 'Express App',
@@ -56,7 +81,7 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
-    await addNote(req.body.title)
+    await addNote(req.body.title, req.user.email)
     res.render('index', {
       title: 'Express App',
       notes: await getNotes(),

@@ -19,6 +19,8 @@
     <% if(error) { %>
     <div class="alert alert-danger">Note was not created :(</div>
     <% } %>
+    <!-- \n -->
+    <%- include('./partials/user-header') %>
 
     <div class="container">
       <h2><%=title%></h2>
@@ -33,7 +35,8 @@
         <ul class="list-group">
           <% for (let i = 0; i < notes.length; i++) {%>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div class="container-title"><%= notes[i].title %></div>
+            <span><%= notes[i].title %></span>
+            <span><%= notes[i].owner %></span>
             <div>
               <button class="btn btn-primary" data-type="edit" data-id="<%= notes[i].id%>" data-title="<%= notes[i].title %>">Обновить</button>
               <button class="btn btn-danger" data-type="remove" data-id="<%= notes[i].id%>">&times;</button>
