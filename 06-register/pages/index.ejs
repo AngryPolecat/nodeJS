@@ -12,15 +12,15 @@
     <title><%=title%></title>
   </head>
   <body>
+    <%- include('./partials/user-header') %>
+    <!-- \n -->
     <% if(created) { %>
     <div class="alert alert-success">Note has been created!</div>
     <% } %>
     <!-- \n -->
     <% if(error) { %>
-    <div class="alert alert-danger">Note was not created :(</div>
+    <div class="alert alert-danger"><%= error %></div>
     <% } %>
-    <!-- \n -->
-    <%- include('./partials/user-header') %>
 
     <div class="container">
       <h2><%=title%></h2>
@@ -35,11 +35,13 @@
         <ul class="list-group">
           <% for (let i = 0; i < notes.length; i++) {%>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span><%= notes[i].title %></span>
+            <span class="container-title w-50"><%= notes[i].title %></span>
             <span><%= notes[i].owner %></span>
-            <div>
-              <button class="btn btn-primary" data-type="edit" data-id="<%= notes[i].id%>" data-title="<%= notes[i].title %>">Обновить</button>
-              <button class="btn btn-danger" data-type="remove" data-id="<%= notes[i].id%>">&times;</button>
+            <div class="w-25 d-flex justify-content-end align-items-center">
+              <% if(notes[i].owner === userEmail) { %>
+              <button class="btn btn-primary ms-1" data-type="edit" data-id="<%= notes[i].id%>" data-title="<%= notes[i].title %>">Обновить</button>
+              <button class="btn btn-danger ms-1" data-type="remove" data-id="<%= notes[i].id%>">&times;</button>
+              <% } %>
             </div>
           </li>
           <% } %>
