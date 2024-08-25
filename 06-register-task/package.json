@@ -1,0 +1,31 @@
+{
+  "name": "02-app",
+  "version": "1.0.0",
+  "description": "This is nodeJS application 02",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "express": "nodemon index.js"
+  },
+  "keywords": [
+    "basics"
+  ],
+  "author": "Vitaly Milovidov <mvv.tfoms@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "chalk": "^4.1.2",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "imask": "^7.6.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.3",
+    "validator": "^13.12.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/yargs": "^17.0.33",
+    "nodemon": "^3.1.4"
+  }
+}

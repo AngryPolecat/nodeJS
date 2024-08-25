@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
+const mongoose = require('mongoose');
+const validator = require('validator');
 
 const UserScheme = mongoose.Schema({
   email: {
@@ -15,7 +15,7 @@ const UserScheme = mongoose.Schema({
     type: String,
     required: true,
   },
-})
+});
 
-const User = mongoose.model('User', UserScheme)
-module.exports = User
+const User = mongoose.model('User', UserScheme);
+module.exports = User;
