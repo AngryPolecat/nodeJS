@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const ProblemScheme = mongoose.Schema({
   fio: {
@@ -12,7 +12,11 @@ const ProblemScheme = mongoose.Schema({
   problem: {
     type: String,
   },
-});
+  date: {
+    type: String,
+    required: true,
+  },
+})
 
-const Problem = mongoose.model('Problem', ProblemScheme);
-module.exports = { Problem };
+const Problem = mongoose.model('Problem', ProblemScheme)
+module.exports = { Problem }

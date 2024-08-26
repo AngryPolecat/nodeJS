@@ -1,9 +1,43 @@
-const phone = document.querySelector('#phone');
-const maskOptions = {
-  mask: '+7(000)000-00-00',
-  lazy: false,
-};
-const mask = new IMask(phone, maskOptions);
+const phone = document.querySelector('#phone')
+if (phone) {
+  const maskOptions = {
+    mask: '+7(000)000-00-00',
+    lazy: false,
+  }
+  const mask = new IMask(phone, maskOptions)
+}
+
+const debounce = (callback, waitTimeMS) => {
+  let timer
+
+  return (...args) => {
+    clearTimeout(timer)
+
+    timer = setTimeout(() => {
+      callback(...args)
+    }, waitTimeMS)
+  }
+}
+
+const searchRecords = async (value) => {
+  // return await fetch(`/problems?fio=${value}`, {
+  //   method: 'GET',
+  //   headers: { 'Content-Type': 'application/json;charset=utf-8' },
+  // })
+}
+
+const search = document.querySelector('#search')
+if (search) {
+  const waitTime = 1000
+
+  search.addEventListener(
+    'input',
+    debounce(() => {
+      searchRecords(search.value)
+    }, waitTime)
+  )
+}
+
 // document.addEventListener('click', ({ target }) => {
 //   const dataType = target.dataset.type
 //   if (dataType === 'remove') {

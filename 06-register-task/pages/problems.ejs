@@ -19,15 +19,27 @@
     <% } %>
 
     <div class="container">
-      <h2><%=title%></h2>
+      <h2>Запись к врачу</h2>
       <% if(problems.length) { %>
+      <div class="d-flex justify-content-between mb-1">
+        <div>
+          <input type="text" name="search" id="search" class="form-control form-control-lg" placeholder="Поиск..." />
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-light btn-lg">По дате</button>
+          <button type="button" class="btn btn-light btn-lg ms-2">По ФИО</button>
+          <button type="button" class="btn btn-light btn-lg ms-2">&#9668;</button>
+          <button type="button" class="btn btn-light btn-lg ms-2">&#9658;</button>
+        </div>
+      </div>
       <div class="card">
         <ul class="list-group">
           <% for (let i = 0; i < problems.length; i++) {%>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span class="container-title w-50"><%= problems[i].fio %></span>
-            <span><%= problems[i].phone %></span>
-            <span><%= problems[i].problem %></span>
+            <span class="w-25 d-inline-block"><%= problems[i].date %></span>
+            <span class="w-25 d-inline-block"><%= problems[i].fio %></span>
+            <span class="w-25 d-inline-block"><%= problems[i].phone %></span>
+            <span class="w-25 d-inline-block"><%= problems[i].problem %></span>
           </li>
           <% } %>
         </ul>
@@ -36,7 +48,6 @@
       <div>No problems</div>
       <% } %>
     </div>
-
     <script src="/app.js"></script>
   </body>
 </html>
