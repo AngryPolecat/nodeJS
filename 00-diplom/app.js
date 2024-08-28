@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const { login, register, getUsers } = require('./controllers/user')
+const { addGroup, getGroups } = require('./controllers/catalog')
 const mapUser = require('./helpers/mapUser')
 const auth = require('./middlewares/auth')
 const hasRole = require('./middlewares/hasRole')
@@ -35,7 +36,17 @@ app.post('/logout', async (req, res) => {
   res.cookie('token', '').send({})
 })
 
+app.get('/catalog', async (req, res) => {
+  const groups = await getGroups()
+  res.send({ data: groups })
+})
+
 app.use(auth)
+
+// app.post('/catalog', hasRole([ROLES.ADMIN]),async (req, res) => {
+//   const group = await addGroup(req.body.group)
+//   res.send({ data: group })
+// })
 
 app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
   const users = await getUsers()

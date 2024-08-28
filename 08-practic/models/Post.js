@@ -31,6 +31,4 @@ const PostScheme = mongoose.Schema(
 
 const Post = mongoose.model('Post', PostScheme)
 
-module.exports = {
-  Post,
-}
+module.exports = Post

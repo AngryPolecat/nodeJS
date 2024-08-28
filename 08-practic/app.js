@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const { register, login, getUsers, getRoles, deleteUser, updateUser } = require('./controllers/user')
+const { getPosts } = require('./controllers/post')
 const mapUser = require('./helpers/mapUser')
 const auth = require('./middlewares/auth')
 const hasRole = require('./middlewares/hasRole')
@@ -33,6 +34,11 @@ app.post('/login', async (req, res) => {
 
 app.post('/logout', async (req, res) => {
   res.cookie('token', '', { httpOnly: true }).send({})
+})
+
+app.get('/posts', async (req, res) => {
+  const data = await getPosts(req.query.search, req.query.limit, req.query.page)
+  res.send({ data })
 })
 
 app.use(auth)
