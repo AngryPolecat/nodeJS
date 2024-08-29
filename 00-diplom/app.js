@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const { login, register, getUsers } = require('./controllers/user')
-const { addGroup, getGroups } = require('./controllers/catalog')
+const { addGroup, getGroups, updateGroup, deleteGroup } = require('./controllers/catalog')
 const mapUser = require('./helpers/mapUser')
 const auth = require('./middlewares/auth')
 const hasRole = require('./middlewares/hasRole')
@@ -41,11 +41,27 @@ app.get('/catalog', async (req, res) => {
   res.send({ data: groups })
 })
 
+app.get('/', (req, res) => {
+  redirect('/catalog')
+})
+
 app.use(auth)
 
-// app.post('/catalog', hasRole([ROLES.ADMIN]),async (req, res) => {
+// app.post('/catalog', hasRole([ROLES.ADMIN]), async (req, res) => {
 //   const group = await addGroup(req.body.group)
 //   res.send({ data: group })
+// })
+
+// app.patch('/catalog/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+//   const group = await updateGroup(req.params.id, {
+//     group: req.body.group,
+//   })
+//   res.send({ data: group })
+// })
+
+// app.delete('/catalog/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
+//   await deleteGroup(req.params.id)
+//   res.send({ error: null })
 // })
 
 app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {

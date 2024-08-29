@@ -2,8 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const { register, login, getUsers, getRoles, deleteUser, updateUser } = require('./controllers/user')
-const { getPosts } = require('./controllers/post')
+const { getPosts, getPost, addPost, updatePost, deletePost } = require('./controllers/post')
 const mapUser = require('./helpers/mapUser')
+const mapPost = require('./helpers/mapPost')
 const auth = require('./middlewares/auth')
 const hasRole = require('./middlewares/hasRole')
 const ROLES = require('./const/roles')
@@ -37,8 +38,38 @@ app.post('/logout', async (req, res) => {
 })
 
 app.get('/posts', async (req, res) => {
-  const data = await getPosts(req.query.search, req.query.limit, req.query.page)
-  res.send({ data })
+  const { posts, lastPage } = await getPosts(req.query.search, req.query.limit, req.query.page)
+  res.send({ data: { lastPage, posts: posts.map((post) => mapPost(post)) } })
+})
+
+app.get('/posts/:id', async (req, res) => {
+  const post = await getPost(req.params.id)
+  res.send({ data: mapPost(post) })
+})
+
+// убрать под аутентификацию
+
+app.delete('/posts/:id', async (req, res) => {
+  await deletePost(req.params.id)
+  res.send({ error: null })
+})
+
+app.post('/posts', async (req, res) => {
+  const post = await addPost({
+    title: req.body.title,
+    image: req.body.imageUrl,
+    content: req.body.content,
+  })
+  res.send({ data: mapPost(post) })
+})
+
+app.patch('/posts/:id', async (req, res) => {
+  const post = await updatePost(req.params.id, {
+    title: req.body.title,
+    image: req.body.imageUrl,
+    content: req.body.content,
+  })
+  res.send({ data: mapPost(post) })
 })
 
 app.use(auth)
