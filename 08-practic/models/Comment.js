@@ -4,7 +4,6 @@ const CommentScheme = mongoose.Schema(
   {
     content: {
       type: String,
-      required: true,
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
@@ -16,6 +15,4 @@ const CommentScheme = mongoose.Schema(
 
 const Comment = mongoose.model('Comment', CommentScheme)
 
-module.exports = {
-  Comment,
-}
+module.exports = Comment

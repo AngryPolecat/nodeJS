@@ -1,7 +1,7 @@
 const Post = require('../models/Post')
 
 // add
-const addPost = async (postData) => Post.create(postData)
+const addPost = async (postData) => await Post.create(postData)
 
 // edit
 const updatePost = async (id, postData) => await Post.findByIdAndUpdate(id, postData, { returnDocument: 'after' })

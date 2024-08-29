@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const { register, login, getUsers, getRoles, deleteUser, updateUser } = require('./controllers/user')
 const { getPosts, getPost, addPost, updatePost, deletePost } = require('./controllers/post')
+const { getComments, addComment } = require('./controllers/comment')
 const mapUser = require('./helpers/mapUser')
 const mapPost = require('./helpers/mapPost')
 const auth = require('./middlewares/auth')
@@ -49,6 +50,19 @@ app.get('/posts/:id', async (req, res) => {
 
 // убрать под аутентификацию
 
+app.post('/post/:id/comments', async (req, res) => {
+  const comment = await addComment(req.params.id, {
+    content: req.body.content,
+    author: '66cd9153d4c632f00a2cb66a',
+  })
+  res.send({ data: comment })
+})
+
+app.get('/post/:id/comments', async (req, res) => {
+  const comments = await getComments()
+  res.send({ data: comments })
+})
+
 app.delete('/posts/:id', async (req, res) => {
   await deletePost(req.params.id)
   res.send({ error: null })
@@ -72,12 +86,17 @@ app.patch('/posts/:id', async (req, res) => {
   res.send({ data: mapPost(post) })
 })
 
-app.use(auth)
-
-app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
+app.get('/users', async (req, res) => {
   const users = await getUsers()
   res.send({ data: users.map((user) => mapUser(user)) })
 })
+
+app.use(auth)
+
+// app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
+//   const users = await getUsers()
+//   res.send({ data: users.map((user) => mapUser(user)) })
+// })
 
 app.patch('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
   const user = await updateUser(req.params.id, {

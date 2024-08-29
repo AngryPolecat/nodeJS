@@ -1,5 +1,12 @@
-// add
+const Comment = require('../models/Comment')
 
-// delete
+// add comments
+const addComment = async (postId, commentData) => await Comment.create(commentData)
 
-// get list comments for post
+// get list comments
+const getComments = async () => await Comment.find()
+
+module.exports = {
+  getComments,
+  addComment,
+}
