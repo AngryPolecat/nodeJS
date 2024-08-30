@@ -48,27 +48,29 @@ app.get('/posts/:id', async (req, res) => {
   res.send({ data: mapPost(post) })
 })
 
-// убрать под аутентификацию
-
-app.post('/post/:id/comments', async (req, res) => {
-  const comment = await addComment(req.params.id, {
-    content: req.body.content,
-    author: '66cd9153d4c632f00a2cb66a',
-  })
-  res.send({ data: comment })
-})
-
 app.get('/post/:id/comments', async (req, res) => {
   const comments = await getComments()
   res.send({ data: comments })
 })
 
-app.delete('/posts/:id', async (req, res) => {
+// убрать под аутентификацию
+
+app.use(auth)
+
+app.post('/post/:id/comments', async (req, res) => {
+  const comment = await addComment(req.params.id, {
+    content: req.body.content,
+    author: '66cd9153d4c632f00a2cb66a' /* заменить на req.user.id */,
+  })
+  res.send({ data: comment })
+})
+
+app.delete('/posts/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
   await deletePost(req.params.id)
   res.send({ error: null })
 })
 
-app.post('/posts', async (req, res) => {
+app.post('/posts', hasRole([ROLES.ADMIN]), async (req, res) => {
   const post = await addPost({
     title: req.body.title,
     image: req.body.imageUrl,
@@ -77,7 +79,7 @@ app.post('/posts', async (req, res) => {
   res.send({ data: mapPost(post) })
 })
 
-app.patch('/posts/:id', async (req, res) => {
+app.patch('/posts/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
   const post = await updatePost(req.params.id, {
     title: req.body.title,
     image: req.body.imageUrl,
@@ -86,17 +88,15 @@ app.patch('/posts/:id', async (req, res) => {
   res.send({ data: mapPost(post) })
 })
 
-app.get('/users', async (req, res) => {
+app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
   const users = await getUsers()
   res.send({ data: users.map((user) => mapUser(user)) })
 })
 
-app.use(auth)
-
-// app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
-//   const users = await getUsers()
-//   res.send({ data: users.map((user) => mapUser(user)) })
-// })
+app.get('/users', hasRole([ROLES.ADMIN]), async (req, res) => {
+  const users = await getUsers()
+  res.send({ data: users.map((user) => mapUser(user)) })
+})
 
 app.patch('/users/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
   const user = await updateUser(req.params.id, {
