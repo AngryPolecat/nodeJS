@@ -16,11 +16,13 @@ export const TableRow = styled(TableRowContainer)`
   & .login-column {
     width: 172px;
     text-align: left;
+    line-height: 24px;
   }
 
   & .registered-at-column {
     width: 213px;
     text-align: left;
+    line-height: 24px;
   }
 
   & .role-column {

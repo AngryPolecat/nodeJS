@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { Header, Footer, Modal, Error } from './components';
 import { Authorization, Registration, Users, Post, Main } from './pages';
 import { setUser } from './actions';
-import { useServerRequest } from './hooks';
 import { ERROR } from './const';
 import styled from 'styled-components';
 
@@ -25,7 +24,6 @@ const Page = styled.div`
 
 export const Blog = () => {
   const dispatch = useDispatch();
-  const requestServer = useServerRequest();
 
   useLayoutEffect(() => {
     const currentUserDataJSON = sessionStorage.getItem('userData');
@@ -37,8 +35,7 @@ export const Blog = () => {
     const currentUserData = JSON.parse(currentUserDataJSON);
 
     dispatch(setUser({ ...currentUserData, roleId: Number(currentUserData.roleId) }));
-    requestServer('updateSession', { ...currentUserData, roleId: Number(currentUserData.roleId) });
-  }, [dispatch, requestServer]);
+  }, [dispatch]);
 
   return (
     <AppColumn>

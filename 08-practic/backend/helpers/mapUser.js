@@ -3,6 +3,6 @@ module.exports = function (user) {
     login: user.login,
     id: user.id,
     roleId: user.role,
-    registeredAt: user.createdAt,
-  }
-}
+    registeredAt: user.createdAt.toLocaleDateString().padStart(10, '0'),
+  };
+};

@@ -1,24 +1,21 @@
-//import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Icon } from '../../../../components';
 import { TableRow } from '../table-row/table-row';
-import { useServerRequest } from '../../../../hooks';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { request } from '../../../../utils';
 import { PROP_TYPES } from '../../../../const';
 
 const UserRowContainer = ({ className, id: userId, login, registeredAt, roleId: userRoleId, roles, onRemoveUser }) => {
   const [selectedRole, setSelectedRole] = useState(userRoleId);
   const [initialRoleId, setInitialRoleId] = useState(userRoleId);
-  const requestServer = useServerRequest();
-  //const dispatch = useDispatch();
 
   const handlerChangeRole = ({ target }) => {
     setSelectedRole(Number(target.value));
   };
 
   const handlerSaveUserRole = (userId, newUserRoleId) => {
-    requestServer('updateUserRole', userId, newUserRoleId).then(() => {
+    request(`/users/${userId}`, 'PATCH', { roleId: newUserRoleId }).then(() => {
       setInitialRoleId(selectedRole);
     });
   };

@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from '../../../../../../components';
-import { useServerRequest } from '../../../../../../hooks';
 import { CLOSE_MODAL, openModal, removeCommentAsync } from '../../../../../../actions';
 import { checkAccess } from '../../../../../../utils';
 import { ROLE } from '../../../../../../const';
@@ -10,7 +9,6 @@ import styled from 'styled-components';
 
 const CommentContainer = ({ className, id, author, content, publishedAt, postId }) => {
   const role = useSelector(roleSelector);
-  const requestServer = useServerRequest();
   const dispatch = useDispatch();
   const hasPermissionsModerator = checkAccess([ROLE.ADMIN, ROLE.MODERATOR], role);
 
@@ -19,7 +17,7 @@ const CommentContainer = ({ className, id, author, content, publishedAt, postId 
       openModal({
         text: 'Удалить комментарий?',
         onConfirm: () => {
-          dispatch(removeCommentAsync(requestServer, commentId, postId));
+          dispatch(removeCommentAsync(commentId, postId));
           dispatch(CLOSE_MODAL);
         },
         onCancel: () => dispatch(CLOSE_MODAL),

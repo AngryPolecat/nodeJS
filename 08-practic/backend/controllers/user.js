@@ -1,52 +1,52 @@
-const bcrypt = require('bcrypt')
-const User = require('../models/User')
-const { generate } = require('../helpers/token')
-const roles = require('../const/roles')
+const bcrypt = require('bcrypt');
+const User = require('../models/User');
+const { generate } = require('../helpers/token');
+const roles = require('../const/roles');
 
 // delete
 
-const deleteUser = async (id) => await User.deleteOne({ _id: id })
+const deleteUser = async (id) => await User.deleteOne({ _id: id });
 
 // edit (roles)
 
-const updateUser = async (id, userData) => await User.findByIdAndUpdate(id, userData, { returnDocument: 'after' })
+const updateUser = async (id, userData) => await User.findByIdAndUpdate(id, userData, { returnDocument: 'after' });
 
 // login
 
 const login = async (login, password) => {
-  const user = await User.findOne({ login })
+  const user = await User.findOne({ login });
 
   if (!user) {
-    throw new Error('User not found!')
+    throw new Error('User not found!');
   }
 
-  const isPasswordCorrect = await bcrypt.compare(password, user.password)
+  const isPasswordCorrect = await bcrypt.compare(password, user.password);
   if (!isPasswordCorrect) {
-    throw new Error('Password is not valid!')
+    throw new Error('Password is not valid!');
   }
 
-  const token = generate({ id: user.id })
+  const token = generate({ id: user.id });
 
-  return { user, token }
-}
+  return { user, token };
+};
 
 // register
 
 const register = async (login, password) => {
   if (!password) {
-    throw new Error('Password is empty!')
+    throw new Error('Password is empty!');
   }
-  const passwordHash = await bcrypt.hash(password, 10)
-  const user = await User.create({ login, password: passwordHash })
+  const passwordHash = await bcrypt.hash(password, 10);
+  const user = await User.create({ login, password: passwordHash });
 
-  const token = generate({ id: user.id })
+  const token = generate({ id: user.id });
 
-  return { user, token }
-}
+  return { user, token };
+};
 
 // get list users
 
-const getUsers = async () => await User.find()
+const getUsers = async () => await User.find();
 
 const getRoles = () => {
   return [
@@ -62,8 +62,8 @@ const getRoles = () => {
       id: roles.USER,
       name: 'User',
     },
-  ]
-}
+  ];
+};
 
 module.exports = {
   register,
@@ -72,4 +72,4 @@ module.exports = {
   getUsers,
   deleteUser,
   updateUser,
-}
+};

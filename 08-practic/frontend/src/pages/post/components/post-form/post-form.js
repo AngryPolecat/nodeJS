@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { Icon, Input } from '../../../../components';
 import { sanitizeContent } from './utils/sanitize-content';
 import { savePostAsync } from '../../../../actions';
-import { useServerRequest } from '../../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../actions';
 import { PROP_TYPES } from '../../../../const';
@@ -26,7 +25,6 @@ const PostFormContainer = ({ className, post: { id, title, content, imageUrl, pu
   const [titleValue, setTitleValue] = useState(title);
   const contentRef = useRef();
   const dispatch = useDispatch();
-  const requestServer = useServerRequest();
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
@@ -39,7 +37,7 @@ const PostFormContainer = ({ className, post: { id, title, content, imageUrl, pu
       openModal({
         text: 'Удалить статью?',
         onConfirm: () => {
-          dispatch(removePostAsync(requestServer, postId)).then(() => navigate('/'));
+          dispatch(removePostAsync(postId)).then(() => navigate('/'));
           dispatch(CLOSE_MODAL);
         },
         onCancel: () => dispatch(CLOSE_MODAL),
@@ -50,7 +48,7 @@ const PostFormContainer = ({ className, post: { id, title, content, imageUrl, pu
   const handlerSavePost = (postId) => {
     /** если не залогинен, то ошибка при сохранении TO DO */
     const newContentPost = sanitizeContent(contentRef.current.innerHTML);
-    dispatch(savePostAsync(requestServer, { id: postId, imageUrl: imageUrlValue, title: titleValue, content: newContentPost })).then(({ id }) => navigate(`/post/${id}`));
+    dispatch(savePostAsync(postId, { imageUrl: imageUrlValue, title: titleValue, content: newContentPost })).then(({ id }) => navigate(`/post/${id}`));
   };
 
   const handlerChangeImageUrl = ({ target }) => setImageUrlValue(target.value);

@@ -1,17 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import { server } from '../../bff'
-import { setUser } from '../../actions'
-import { roleSelector } from '../../selectors'
-import { Input, Button } from '../../components'
-import { ROLE } from '../../const'
-import { AuthError } from '../../components'
-import { useResetForm } from '../../hooks'
-import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+//import { server } from '../../bff';
+import { setUser } from '../../actions';
+import { roleSelector } from '../../selectors';
+import { Input, Button } from '../../components';
+import { ROLE } from '../../const';
+import { AuthError } from '../../components';
+import { useResetForm } from '../../hooks';
+import { request } from '../../utils';
+import styled from 'styled-components';
 
 const regFormSchema = yup.object().shape({
   login: yup
@@ -27,10 +28,10 @@ const regFormSchema = yup.object().shape({
     .min(5, 'Неверно заполнен пароль. Минимум 3 символа')
     .max(30, 'неверно заполнен пароль. Максимум 15 символов'),
   passcheck: yup.string().oneOf([yup.ref('password'), null], 'Пароли не совпадают'),
-})
+});
 
 const RegistrationContainer = ({ className }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -44,29 +45,29 @@ const RegistrationContainer = ({ className }) => {
       passcheck: '',
     },
     resolver: yupResolver(regFormSchema),
-  })
+  });
 
-  const role = useSelector(roleSelector)
-  const [serverError, setServerError] = useState(null)
+  const role = useSelector(roleSelector);
+  const [serverError, setServerError] = useState(null);
 
-  useResetForm(reset)
+  useResetForm(reset);
 
   const onSubmit = ({ login, password }) => {
-    server.register(login, password).then(({ error, res }) => {
+    request('/register', 'POST', { login, password }).then(({ error, user }) => {
       if (error) {
-        setServerError(`Ошибка запроса: ${error}`)
-        return
+        setServerError(`Ошибка запроса: ${error}`);
+        return;
       }
-      dispatch(setUser(res))
-      sessionStorage.setItem('userData', JSON.stringify(res))
-    })
-  }
+      dispatch(setUser(user));
+      sessionStorage.setItem('userData', JSON.stringify(user));
+    });
+  };
 
-  const formError = errors?.login?.message || errors?.password?.message || errors?.passcheck?.message
-  const errorMessage = formError || serverError
+  const formError = errors?.login?.message || errors?.password?.message || errors?.passcheck?.message;
+  const errorMessage = formError || serverError;
 
   if (role !== ROLE.GUEST) {
-    return <Navigate to="/" />
+    return <Navigate to="/" />;
   }
 
   return (
@@ -88,8 +89,8 @@ const RegistrationContainer = ({ className }) => {
         {errorMessage && <AuthError>{errorMessage}</AuthError>}
       </form>
     </div>
-  )
-}
+  );
+};
 
 export const Registration = styled(RegistrationContainer)`
   display: flex;
@@ -101,4 +102,4 @@ export const Registration = styled(RegistrationContainer)`
     flex-direction: column;
     width: 300px;
   }
-`
+`;

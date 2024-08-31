@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { Icon } from '../../../../components';
 import { Comment } from './components';
 import { useDispatch, useSelector } from 'react-redux';
-import { idUserSelector, roleSelector } from '../../../../selectors';
+import { roleSelector } from '../../../../selectors';
 import { addCommentAsync } from '../../../../actions';
-import { useServerRequest } from '../../../../hooks';
 import { ROLE, PROP_TYPES } from '../../../../const';
 import { checkAccess } from '../../../../utils';
 import PropTypes from 'prop-types';
@@ -17,11 +16,9 @@ const NewComment = styled.textarea`
 `;
 
 const CommentsContainer = ({ className, comments, postId }) => {
-  const userId = useSelector(idUserSelector);
   const role = useSelector(roleSelector);
   const [newComment, setNewComment] = useState('');
   const dispatch = useDispatch();
-  const requestServer = useServerRequest();
   const hasPermissionsReader = checkAccess([ROLE.ADMIN, ROLE.MODERATOR, ROLE.READER], role);
 
   const handlerChangeComment = ({ target }) => {
@@ -30,7 +27,7 @@ const CommentsContainer = ({ className, comments, postId }) => {
 
   const handlerAddComment = () => {
     /** комментарий добавляется даже после разлогирования, но только 1 раз */
-    dispatch(addCommentAsync(requestServer, userId, postId, newComment));
+    dispatch(addCommentAsync(postId, newComment));
     setNewComment('');
   };
 

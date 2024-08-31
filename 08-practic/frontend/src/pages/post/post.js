@@ -2,7 +2,6 @@ import { useParams, useMatch, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { PostContent, Comments, PostForm } from './components';
-import { useServerRequest } from '../../hooks';
 import { loadPostAsync, RESET_POST } from '../../actions';
 import { postSelector } from '../../selectors';
 import { Error, PrivateContent } from '../../components';
@@ -15,7 +14,6 @@ const PostContainer = ({ className }) => {
   const isCreating = useMatch('/post');
   const dispatch = useDispatch();
   const post = useSelector(postSelector);
-  const requestServer = useServerRequest();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,11 +27,11 @@ const PostContainer = ({ className }) => {
       setIsLoading(false);
       return;
     }
-    dispatch(loadPostAsync(requestServer, params.postId)).then((response) => {
+    dispatch(loadPostAsync(params.postId)).then((response) => {
       setError(response.error);
       setIsLoading(false);
     });
-  }, [dispatch, requestServer, params.postId, isCreating, navigate]);
+  }, [dispatch, params.postId, isCreating, navigate]);
 
   if (isLoading) {
     return null;
@@ -56,6 +54,9 @@ const PostContainer = ({ className }) => {
 };
 
 export const Post = styled(PostContainer)`
+  display: flex;
+  flex-direction: column;
+
   & .error {
     margin: 20px;
   }

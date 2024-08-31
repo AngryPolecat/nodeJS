@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from '../../../../components';
-import { useServerRequest } from '../../../../hooks';
 import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../actions';
 import { checkAccess } from '../../../../utils';
 import { ROLE, PROP_TYPES } from '../../../../const';
@@ -25,7 +24,6 @@ const PostContentContainer = ({ className, post: { id, title, content, imageUrl,
   const role = useSelector(roleSelector);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const requestServer = useServerRequest();
   const hasPermissionsAdmin = checkAccess([ROLE.ADMIN], role);
 
   const handlerRemovePost = (postId) => {
@@ -33,9 +31,8 @@ const PostContentContainer = ({ className, post: { id, title, content, imageUrl,
       openModal({
         text: 'Удалить статью?',
         onConfirm: () => {
-          dispatch(removePostAsync(requestServer, postId));
+          dispatch(removePostAsync(postId)).then(() => navigate('/'));
           dispatch(CLOSE_MODAL);
-          navigate('/');
         },
         onCancel: () => dispatch(CLOSE_MODAL),
       })

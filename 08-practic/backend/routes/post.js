@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
 router.post('/:id/comments', auth, async (req, res) => {
   const comment = await addComment(req.params.id, {
     content: req.body.content,
-    author: '66cd9153d4c632f00a2cb66a' /* заменить на req.user.id */,
+    author: req.user.id,
   });
   res.send({ data: mapComment(comment) });
 });
