@@ -1,17 +1,20 @@
-const Comment = require('../models/Comment')
-const Post = require('../models/Post')
+const Comment = require('../models/Comment');
+const Post = require('../models/Post');
 
 // add comments
 const addComment = async (postId, commentData) => {
-  const comment = await Comment.create(commentData)
-  await Post.findByIdAndUpdate(postId, { $push: { comments: comment } })
-  return comment
-}
+  const comment = await Comment.create(commentData);
+  await Post.findByIdAndUpdate(postId, { $push: { comments: comment } });
+  await comment.populate('author');
+  return comment;
+};
 
-// get list comments
-const getComments = async () => await Comment.find()
+const deleteComment = async (postId, commentId) => {
+  await Comment.deleteOne({ _id: commentId });
+  await Post.findByIdAndUpdate(postId, { $pull: { comments: commentId } });
+};
 
 module.exports = {
-  getComments,
   addComment,
-}
+  deleteComment,
+};
