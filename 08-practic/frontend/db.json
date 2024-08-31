@@ -1,0 +1,208 @@
+{
+  "users": [
+    {
+      "id": "001",
+      "login": "admin",
+      "password": "admin",
+      "registed_at": "2024-07-08",
+      "role_id": 0
+    },
+    {
+      "id": "002",
+      "login": "user",
+      "password": "user",
+      "registed_at": "2024-08-08",
+      "role_id": 2
+    },
+    {
+      "login": "Youhu",
+      "password": "123456",
+      "registed_at": "2055-12-11 09:54",
+      "role_id": 2,
+      "id": "TgJU6lD"
+    },
+    {
+      "login": "Eowin",
+      "password": "123456",
+      "registed_at": "2058-07-21 04:06",
+      "role_id": 2,
+      "id": "PcmMRPm"
+    },
+    {
+      "login": "moderator",
+      "password": "qwe123",
+      "registed_at": "2048-10-23 23:02",
+      "role_id": 1,
+      "id": "puj1fzx"
+    }
+  ],
+  "roles": [
+    {
+      "id": 0,
+      "name": "Администратор"
+    },
+    {
+      "id": 1,
+      "name": "Модератор"
+    },
+    {
+      "id": 2,
+      "name": "Читатель"
+    },
+    {
+      "id": 3,
+      "name": "Гость"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "title": "Lorem ipsum dolor sit amet. Et magnam vitae eum vitae sint ut itaque consectetur",
+      "image_url": "https://loremflickr.com/280/150",
+      "content": "Lorem ipsum dolor sit amet. Et magnam vitae eum vitae sint ut itaque consectetur. Et numquam enim sed odio commodi et distinctio voluptatem aut ipsa beatae in quos nesciunt. Eum ipsa beatae ut mollitia eveniet sit voluptatum distinctio qui neque animi ex porro totam rem numquam sapiente quo earum voluptas? Ut cupiditate enim sed voluptatum repudiandae et vitae atque est error voluptatem. Ut blanditiis impedit quo maiores sint est beatae unde hic nostrum veritatis. Eum rerum distinctio eum omnis pariatur et autem fugiat est quia explicabo qui velit ullam 33 debitis minima. Qui minima fugit qui molestiae impedit At magnam distinctio aut officiis laboriosam sed earum culpa eos natus asperiores nam sequi mollitia. Quo voluptatem excepturi ex nisi repudiandae nam voluptas corrupti aut blanditiis quos ab voluptas laboriosam. Qui officiis necessitatibus eos cumque internos a minus eveniet et temporibus necessitatibus. Qui perspiciatis ratione ex magni culpa in quisquam dolorem qui velit quos aut voluptatem sunt ut fuga quam hic galisum rerum! ",
+      "published_at": "2024-01-01"
+    },
+    {
+      "id": "2",
+      "title": "Lorem ipsum dolor sit amet. Ut officiis autem ea pariatur impedit ut fuga",
+      "image_url": "https://loremflickr.com/280/150",
+      "content": "Lorem ipsum dolor sit amet. Ut officiis autem ea pariatur impedit ut fuga minus qui corporis velit id voluptatem porro vel sapiente mollitia et odio deleniti. Qui eligendi molestias vel quia omnis aut voluptas ipsa qui quis omnis. Nam totam repudiandae eos doloremque enim hic quae voluptatibus non fuga quaerat? Ea suscipit nihil vel placeat fuga id repellendus rerum non perspiciatis deserunt aut tempore dicta ea vero laborum? Aut dicta tempore eum unde amet et molestiae dolores aut voluptatibus quia sit ullam eveniet eum itaque ipsum in consequatur nihil. Et magnam doloremque id nihil natus aut voluptas quia et reprehenderit sint cum nemo deleniti est accusamus atque? Eos expedita laudantium quo ipsum incidunt et nobis perferendis eum consectetur iusto id voluptatum fuga ut voluptas fugiat sit molestias ullam. Et alias maiores id optio dolorum aut nulla consequatur? Qui deserunt omnis in eius quasi qui illum sunt ut saepe dignissimos aut iste atque et delectus maiores? Eum molestiae voluptas eum quaerat cupiditate in officiis consequatur. Et nihil aspernatur ut vero vitae quo odio assumenda At esse laborum eum quasi dolores et iure culpa. Sed tempora nihil qui libero aperiam eos inventore maiores. Sit rerum amet sit voluptas corporis est exercitationem saepe sed provident expedita et sint sapiente ut fugit commodi et suscipit optio? Ut animi porro et iste nihil eum natus voluptate est vitae laboriosam quo veniam inventore aut dolores voluptatem. Qui pariatur accusamus sed quibusdam tenetur est iure magnam et accusantium officia sed tenetur magnam 33 ducimus numquam! Ea eius consequatur vel galisum corrupti et debitis maiores qui dolore veritatis est vitae quaerat est illo molestias. Et nulla ipsam et vitae excepturi in esse quia qui accusantium nihil et modi perspiciatis id consequatur culpa sed minima provident. Ex omnis maiores 33 veritatis consectetur est nobis aliquam sit nihil impedit ad enim dolorum. Sed harum quisquam ad voluptatem deserunt est voluptas possimus. Et molestiae vitae ut suscipit asperiores ad ullam galisum et architecto quaerat. Et placeat quia ex voluptatem iste et harum doloribus. Ut voluptatem labore eos sint nobis qui perspiciatis ducimus eum omnis nobis. Qui molestiae unde eos aperiam dicta cum laudantium animi et corrupti iste vel sunt similique vel illum itaque aut architecto quae. Hic esse molestias est veritatis galisum quo deleniti obcaecati et galisum omnis et rerum distinctio ut voluptas placeat. Hic natus eius ut maxime voluptatibus nam voluptatem iusto et velit magni! A similique pariatur At laboriosam earum vel voluptatem quis qui doloribus assumenda est soluta sunt et temporibus quasi et facere veniam. Aut consequuntur porro id quos doloribus cum nihil enim ab maxime tenetur aut officiis alias sed quasi molestias. Et molestiae nesciunt ut molestiae quas et nulla Quis et totam animi est dolorem debitis hic quibusdam corrupti. Non nostrum harum cum laboriosam optio a perspiciatis ipsum eos adipisci nostrum. Quo voluptate omnis in nesciunt quia ea galisum minus non ipsam repellendus ut laboriosam amet ut impedit odio. Qui consequatur maiores sed rerum veritatis eum rerum rerum aut ratione fugit. Ea pariatur quam ut omnis architecto aut cumque dolore id expedita asperiores ut fuga animi. Non commodi recusandae et expedita architecto aut error enim cum earum possimus ut numquam deleniti sed perspiciatis ipsam.",
+      "published_at": "2024-01-01"
+    },
+    {
+      "id": "3",
+      "title": "Lorem ipsum dolor sit amet. Et quia corporis qui illo culpa et repellat",
+      "image_url": "https://loremflickr.com/280/150",
+      "content": "Lorem ipsum dolor sit amet. Et quia corporis qui illo culpa et repellat voluptatem aut autem laboriosam. Ab temporibus reiciendis sit ipsum facere est consequatur harum a eius autem et assumenda quia At nulla necessitatibus. Ut sunt consequatur aut distinctio placeat est commodi autem. Eum earum galisum ut culpa voluptatem aut animi molestiae non magni consequatur qui tempora maxime non cupiditate debitis? Ad iste quis ut vero tenetur et facilis expedita ex velit corporis vel numquam exercitationem sit nihil incidunt. Est libero reiciendis non incidunt velit a repellat cumque ab illum sequi qui cumque consequatur ea quia consequatur. Qui animi autem quo omnis aspernatur est similique quos rem reiciendis voluptatem quo magni sapiente. Cum quos doloribus est asperiores voluptas et fugiat beatae ut eligendi autem ut fugiat porro. Ut velit enim vel dolor facilis ut veritatis culpa. Id eligendi illum eos praesentium magnam et pariatur quia est distinctio illo et consequatur eius. Ut inventore enim et odio obcaecati ab odio doloremque et autem distinctio et repudiandae illo sit asperiores molestiae vel quaerat itaque. Eum voluptas omnis quo omnis voluptate aut quisquam libero. Ab autem corrupti aut dignissimos odio vel magni praesentium ea sapiente nobis aut consequuntur galisum aut ratione voluptatem? Eum porro veritatis et neque pariatur non nesciunt similique est voluptatem vero ut autem iure At distinctio ullam est dolorem fugit. Qui quia placeat rem galisum ipsa quo possimus expedita 33 adipisci quia. Et consequatur omnis aut libero dignissimos a repudiandae possimus aut doloribus cumque? Est facere facilis est nihil vitae et cupiditate optio sed dolores veritatis et voluptatem provident. Et dolor cumque eos repellendus aspernatur et ipsum dicta? Ab molestiae accusantium sit consectetur aperiam qui fugiat voluptatem? Est quam reprehenderit ea molestiae maxime eos galisum repudiandae et natus architecto. Non porro ullam eum consectetur quidem et nulla ipsum. Est quod assumenda non quas enim ea illo placeat! Aut cumque quos sit repellat sapiente ut enim distinctio. Qui inventore necessitatibus et blanditiis obcaecati aut dolor temporibus At rerum assumenda qui nihil velit. Est dolor molestiae id rerum eaque eos quia molestias. Qui facere numquam aut molestiae fugiat in voluptatibus repudiandae id dolores earum 33 impedit dolorum ut quam galisum aut nemo commodi. Qui minima natus id repudiandae quibusdam et voluptate rerum ex asperiores totam. Non harum neque non tempore veniam vel eaque nisi! Sit facilis itaque vel esse doloribus ab nihil quia. Qui fuga ipsa nam animi eaque et numquam voluptates non necessitatibus quasi sit sint nihil! Et mollitia accusamus eum enim rerum in exercitationem autem ut voluptatem assumenda ea facere aperiam? A omnis officia sed voluptatem saepe aut quia voluptatibus et corporis numquam et assumenda temporibus. Est delectus dolorum non itaque nisi et ratione quisquam! Et reprehenderit consequatur hic necessitatibus porro id quidem deserunt et cupiditate rerum sed voluptas molestiae. Qui labore minus rem deleniti voluptate cum eaque dolores et quod modi. Aut nobis repellendus aut molestias corrupti non quis pariatur.",
+      "published_at": "2024-01-01"
+    },
+    {
+      "id": "4",
+      "title": "Lorem ipsum dolor sit amet. Est voluptatem eveniet At maiores",
+      "image_url": "https://loremflickr.com/280/150",
+      "content": "Lorem ipsum dolor sit amet. Est voluptatem eveniet At maiores enim est amet consectetur qui nihil pariatur sit deleniti officiis eos voluptas quas. Qui rerum voluptatem ut excepturi internos nam dolorum suscipit qui dolores iure. Rem error reiciendis sit tenetur quae aut consequatur quia hic architecto sint ad enim nostrum et fuga accusamus et aperiam ipsam. Id delectus soluta et similique pariatur et dolor impedit vel dolorem doloremque. 33 blanditiis architecto est sapiente maxime aut porro quia ea consequatur dolore a impedit minima ut provident officiis. Aut aliquid nihil non sunt repellat sed debitis galisum et optio molestiae. Eos autem iste et ducimus molestiae rem dignissimos quae vel nihil saepe quo ratione facilis qui vero labore et minima quibusdam! Ea quod nesciunt est sint repudiandae rem adipisci voluptas. Sed doloremque enim ut tenetur consequuntur aut totam molestiae vel omnis unde ut adipisci pariatur et saepe culpa ut rerum alias. Et eaque quaerat sit illo earum ab quidem similique hic corrupti porro nam recusandae nihil. Et sequi nobis aut minima galisum ut necessitatibus exercitationem nam ducimus minus non nemo cumque. Aut odio iste et excepturi voluptas et aspernatur eligendi ex voluptas accusantium ut dolores totam. Cum nulla voluptas est expedita fuga rem aliquam nihil aut veritatis amet ut saepe voluptatum sed nihil nisi hic facere nisi. Et nisi illo qui labore magnam est cupiditate doloremque et tempore officiis est repellendus voluptatibus. Ut illum quam sit temporibus esse nam soluta tempore est perferendis libero et veritatis deserunt. Eos laboriosam odit qui explicabo minima et rerum dignissimos et saepe laborum et libero voluptatem cum reiciendis assumenda ut natus voluptatem. Aut autem architecto ut sint voluptatem et iure voluptas aut dicta ullam qui galisum voluptas. Aut similique incidunt ex pariatur asperiores est harum dolorem 33 aliquam quis et enim dignissimos. In laudantium similique non libero neque et unde laborum. Ut consequatur voluptas ut necessitatibus quod non provident incidunt ut magnam veritatis. Aut excepturi minima in nulla facilis ut impedit aspernatur qui possimus mollitia est facilis molestiae ut laborum distinctio. Quo nobis voluptas non architecto odit aut minima tenetur qui voluptatem illo. Ex animi quisquam eum reprehenderit facere ut necessitatibus enim ut officia atque. Sit nulla maiores aut dolores quia qui velit placeat. Ut beatae quia in omnis nulla qui natus illo At nulla dolores ad nobis ratione ab quaerat voluptatem? Id dolor ipsum ea veniam consequuntur eos rerum veritatis non sequi praesentium quo autem consequatur aut autem voluptas cum consequatur placeat. Est excepturi quaerat et dolorum consequatur qui tempore placeat hic velit fugiat id molestiae aliquid non enim nostrum aut molestiae eaque. ",
+      "published_at": "2024-01-01"
+    },
+    {
+      "id": "5",
+      "title": "Lorem ipsum dolor sit amet. At nostrum itaque eos enim porro id adipisci",
+      "image_url": "https://loremflickr.com/280/150",
+      "content": "Lorem ipsum dolor sit amet. At nostrum itaque eos enim porro id adipisci assumenda quo consequatur amet eum debitis perspiciatis? Et iure maxime et quas officiis ad sunt omnis eos quis harum. Qui beatae earum et enim Quis sed voluptas optio ut minima omnis aut quisquam eligendi quo magnam eaque eos repellat minus. Et omnis voluptatum qui ratione quasi rem rerum veritatis. Non nihil placeat ut sint sunt vel explicabo sapiente! In neque tempora sit impedit aspernatur non fugit pariatur sit sapiente aperiam. Ad Quis delectus ut galisum ipsum et reprehenderit nobis et molestiae ipsum eum animi architecto ut explicabo voluptatem et aspernatur enim! Eum fugiat voluptatem ab aperiam aperiam et rerum error aut enim voluptas vel voluptas consequatur sed modi adipisci. Ut ipsam incidunt et voluptatum perferendis qui molestiae rerum ut ducimus vero ex nihil beatae sit eaque possimus eum nihil necessitatibus. Vel placeat internos aut asperiores Quis sit tenetur natus a placeat alias ex perspiciatis architecto qui similique soluta aut itaque impedit? Ut tempora officia nam quidem amet est assumenda doloribus. Ad odit voluptas et suscipit voluptates et itaque unde rem consequatur cupiditate et dolores quaerat non velit nobis sit corporis dolorum. At quidem voluptas qui beatae consequatur sit labore dolore sed internos totam nam dolorum accusamus eos esse sunt sit assumenda tempora. Eos odio quidem est rerum velit id repellat soluta? Eos quidem libero est maiores quidem ea accusantium maiores. Sit voluptatem voluptate est porro tenetur est aliquam labore eos totam maxime et accusantium enim et incidunt voluptas. Hic dolores autem non reiciendis dolorem aut rerum dolorem eos aspernatur praesentium sit sunt aspernatur. Quo ratione voluptatum ex voluptatem quos eum reprehenderit laudantium sit facere dolorum non sunt velit. Qui atque rerum eum voluptas molestias rem quia fugiat et omnis quos non rerum earum a velit error. Eum modi nihil in omnis necessitatibus et voluptas quod et omnis dolor est dolor laudantium eos ipsam minus est omnis provident. Id quaerat saepe cum dolor doloremque sit molestias beatae. Vel eveniet nihil et nisi iure rem tenetur fugit qui culpa voluptatibus sit quasi deleniti. Aut itaque voluptatem aut aperiam pariatur id libero voluptates. Est tempore facere quo ducimus illum ut omnis voluptatibus aut debitis nihil quo eligendi obcaecati hic voluptas nisi! Ad suscipit animi id maxime nihil aut dolorem quia id quidem praesentium? Sit illum voluptatem sit aspernatur quia qui eaque praesentium aut nulla optio. Qui odio pariatur ad facere magnam cum ipsum repellat sed reprehenderit sunt. Et dolor enim a obcaecati quae At dolor voluptatem et dolor laudantium aut consectetur unde quo quasi repellat aut esse reprehenderit. Aut ipsum labore hic quis odit et officiis quia hic velit asperiores non quasi animi. Ab autem maiores ut vitae dolorem et quis deserunt ex reiciendis doloremque At impedit provident est galisum officia et dicta laborum! Et voluptatibus maiores et voluptate dignissimos sit maxime accusantium in iste facilis ut consequatur vero. Et alias labore qui sint quidem est nemo consequuntur non minus enim sit provident perspiciatis non quisquam quas sed officia autem? Quo delectus fugit eum rerum tempora nam cupiditate voluptatem est laudantium pariatur ab veritatis aspernatur qui incidunt excepturi. Ut aliquid deserunt in galisum quod et totam quia sit rerum quam qui doloribus nobis sit labore vitae. Est totam error quo autem sequi ut aliquid quia eos voluptatum magni. Et eveniet beatae in ullam excepturi ad nobis minus qui sint sequi ad atque quisquam. ",
+      "published_at": "2024-01-01"
+    },
+    {
+      "title": "Новая статья",
+      "content": "Проснувшись однажды утром после беспокойного сна, Грегор Замза обнаружил, что он у себя в постели превратился в страшное насекомое. Лежа на панцирнотвердой спине, он видел, стоило ему приподнять голову, свой коричневый, выпуклый, разделенный дугообразными чешуйками живот, на верхушке которого еле держалось готовое вот-вот окончательно сползти одеяло. Его многочисленные, убого тонкие по сравнению с остальным телом ножки беспомощно копошились у него перед глазами. «Что со мной случилось?» – подумал он. Это не было сном. Его комната, настоящая, разве что слишком маленькая, но обычная комната, мирно покоилась в своих четырех хорошо знакомых стенах. Над столом, где были разложены распакованные образцы сукон – Замза был коммивояжером, – висел портрет, который он недавно вырезал из иллюстрированного журнала и вставил в красивую золоченую рамку. На портрете была изображена дама в меховой шляпе и боа, она сидела очень прямо и протягивала зрителю тяжелую меховую муфту, в которой целиком исчезала ее рука. Затем взгляд Грегора устремился в окно, и пасмурная погода – слышно было, как по жести подоконника стучат капли дождя – привела его и вовсе в грустное настроение. «Хорошо бы еще немного поспать и забыть всю эту чепуху», – подумал он, но это было совершенно неосуществимо, он привык спать на правом боку, а в теперешнем своем",
+      "image_url": "https://loremflickr.com/280/150",
+      "published_at": "2043-04-05 14:13",
+      "id": "sFZ1a-4"
+    },
+    {
+      "title": "Далеко-далеко за словесными горами ",
+      "content": "Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Вдали от всех живут они в буквенных домах на берегу Семантика большого языкового океана. Маленький ручеек Даль журчит по всей стране и обеспечивает ее всеми необходимыми правилами. Эта парадигматическая страна, в которой жаренные члены предложения залетают прямо в рот. Даже всемогущая пунктуация не имеет власти над рыбными текстами, ведущими безорфографичный образ жизни. Однажды одна маленькая строчка рыбного текста по имени Lorem ipsum решила выйти в большой мир грамматики. Великий Оксмокс предупреждал ее о злых запятых, диких знаках вопроса и коварных точках с запятой, но текст не дал сбить себя с толку. Он собрал семь своих заглавных букв, подпоясал инициал за пояс и пустился в дорогу. Взобравшись на первую вершину курсивных гор, бросил он последний взгляд назад, на силуэт своего родного города Буквоград, на заголовок деревни Алфавит и на подзаголовок своего переулка Строчка. Грустный риторический вопрос скатился по его щеке и он продолжил свой путь. По дороге встретил текст рукопись. Она предупредила его: «В моей стране все переписывается по несколько раз. Единственное, что от меня осталось, это приставка «и». Возвращайся ты лучше в свою безопасную страну». Не послушавшись рукописи, наш текст продолжил свой путь. Вскоре ему повстречался коварный составитель&lt;/span&gt;",
+      "image_url": "https://loremflickr.com/280/150",
+      "published_at": "2051-04-25 08:16",
+      "id": "HbwiV_J"
+    },
+    {
+      "title": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
+      "content": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,",
+      "image_url": "https://loremflickr.com/280/150",
+      "published_at": "2045-06-13 02:54",
+      "id": "UQjDQYP"
+    },
+    {
+      "title": "Современные технологии достигли такого уровня",
+      "content": "Современные технологии достигли такого уровня, что постоянное информационно-пропагандистское обеспечение нашей деятельности играет важную роль в формировании кластеризации усилий. В своём стремлении повысить качество жизни, они забывают, что сложившаяся структура организации представляет собой интересный эксперимент проверки поэтапного и последовательного развития общества. Наше дело не так однозначно, как может показаться: социально-экономическое развитие предоставляет широкие возможности для экономической целесообразности принимаемых решений. Принимая во внимание показатели успешности, понимание сути ресурсосберегающих технологий требует определения и уточнения своевременного выполнения сверхзадачи. Таким образом, сплочённость команды профессионалов напрямую зависит от системы обучения кадров, соответствующей насущным потребностям. Разнообразный и богатый опыт говорит нам, что выбранный нами инновационный путь требует от нас анализа своевременного выполнения сверхзадачи. Есть над чем задуматься: предприниматели в сети интернет освещают чрезвычайно интересные особенности картины в целом, однако конкретные выводы, разумеется, ассоциативно распределены по отраслям. Однозначно, непосредственные участники технического прогресса призваны к ответу. Внезапно, интерактивные прототипы, вне зависимости от их уровня, должны быть преданы социально-демократической анафеме. Противоположная точка зрения подразумевает, что базовые сценарии поведения пользователей будут призваны к ответу.",
+      "image_url": "https://loremflickr.com/280/150",
+      "published_at": "2056-11-22 02:47",
+      "id": "qrMkoa0"
+    },
+    {
+      "title": "Разнообразный и богатый опыт говорит нам",
+      "content": "Разнообразный и богатый опыт говорит нам, что высокое качество позиционных исследований не оставляет шанса для системы обучения кадров, соответствующей насущным потребностям. Мы вынуждены отталкиваться от того, что высокое качество позиционных исследований создаёт предпосылки для глубокомысленных рассуждений. В частности, семантический разбор внешних противодействий напрямую зависит от системы обучения кадров, соответствующей насущным потребностям! Картельные сговоры не допускают ситуации, при которой непосредственные участники технического прогресса будут представлены в исключительно положительном свете. С другой стороны, современная методология разработки однозначно фиксирует необходимость поэтапного и последовательного развития общества. Как принято считать, реплицированные с зарубежных источников, современные исследования, которые представляют собой яркий пример континентально-европейского типа политической культуры, будут объявлены нарушающими общечеловеческие нормы этики и морали. Равным образом, дальнейшее развитие различных форм деятельности играет важную роль в формировании укрепления моральных ценностей. Прежде всего, высокое качество позиционных исследований влечет за собой процесс внедрения и модернизации прогресса профессионального сообщества. Но семантический разбор внешних противодействий требует определения и уточнения своевременного выполнения сверхзадачи! А ещё реплицированные с зарубежных источников, современные исследования в равной степени предоставлены сами себе.",
+      "image_url": "https://loremflickr.com/280/150",
+      "published_at": "2060-11-29 10:29",
+      "id": "vCd00cF"
+    }
+  ],
+  "comments": [
+    {
+      "author_id": "TgJU6lD",
+      "post_id": "1",
+      "published_at": "2059-07-17 10:50",
+      "content": "Мой первый комментарий",
+      "id": "plmqZGO"
+    },
+    {
+      "author_id": "TgJU6lD",
+      "post_id": "2",
+      "published_at": "2058-10-11 17:13",
+      "content": "Первый комментарий",
+      "id": "VYF-4Ni"
+    },
+    {
+      "author_id": "002",
+      "post_id": "1",
+      "published_at": "2034-09-19 09:11",
+      "content": "Новый комментарий",
+      "id": "G7CtMSw"
+    },
+    {
+      "author_id": "002",
+      "post_id": "1",
+      "published_at": "2040-07-25 16:42",
+      "content": "Еще комментарий",
+      "id": "weIs0Jc"
+    },
+    {
+      "author_id": "002",
+      "post_id": "1",
+      "published_at": "2042-04-17 16:25",
+      "content": "Автор мудак",
+      "id": "9FgP057"
+    },
+    {
+      "author_id": "TgJU6lD",
+      "post_id": "1",
+      "published_at": "2061-05-07 18:08",
+      "content": "Сам мудак",
+      "id": "3tBkly5"
+    },
+    {
+      "author_id": "TgJU6lD",
+      "post_id": "2",
+      "published_at": "2045-08-09 05:23",
+      "content": "Второй комментарий",
+      "id": "h6jJiXv"
+    },
+    {
+      "author_id": "001",
+      "post_id": "5",
+      "published_at": "2049-12-07 02:10",
+      "content": "Первый комментарий",
+      "id": "ZEhoWqm"
+    },
+    {
+      "author_id": "puj1fzx",
+      "post_id": "1",
+      "published_at": "2056-08-31 17:31",
+      "content": "Комментарий от меня",
+      "id": "oXMq2As"
+    },
+    {
+      "author_id": "002",
+      "post_id": "1",
+      "published_at": "2047-10-03 18:53",
+      "content": "И от меня новый комментарий",
+      "id": "rn6IpJi"
+    },
+    {
+      "author_id": "001",
+      "post_id": "1",
+      "published_at": "2048-03-04 21:48",
+      "content": "Проверка после выноса в getCommentsWithAuthor",
+      "id": "3sWWzWx"
+    }
+  ]
+}
