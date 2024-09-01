@@ -1,12 +1,12 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
-const sign = 'testtest'
+const sign = process.env.JWT_SECRET;
 
 module.exports = {
   generate(data) {
-    return jwt.sign(data, sign, { expiresIn: '30d' })
+    return jwt.sign(data, sign, { expiresIn: '30d' });
   },
   verify(token) {
-    return jwt.verify(token, sign)
+    return jwt.verify(token, sign);
   },
-}
+};

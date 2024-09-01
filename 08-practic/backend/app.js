@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -10,7 +12,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use('/api', routes);
 
-mongoose.connect('mongodb+srv://mvv:4vJGI5bfG3o8JDV5@cluster0.rd9er.mongodb.net/blog?retryWrites=true&w=majority&appName=Cluster0').then(() => {
+mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => {
   app.listen(port, () => {
     console.log(`Server has been started on port ${port}...`);
   });
