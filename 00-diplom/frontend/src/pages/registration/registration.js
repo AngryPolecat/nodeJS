@@ -1,74 +1,69 @@
 // import { useDispatch, useSelector } from 'react-redux';
 // import { Link, Navigate } from 'react-router-dom';
-// import { useState } from 'react';
-// import { useForm } from 'react-hook-form';
-// import { yupResolver } from '@hookform/resolvers/yup';
-// import * as yup from 'yup';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 // import { setUser } from '../../actions';
 // import { roleSelector } from '../../selectors';
-// import { Input, Button } from '../../components';
 // import { ROLE } from '../../const';
-// import { AuthError } from '../../components';
-// import { useResetForm } from '../../hooks';
+//import { useResetForm } from '../../hooks';
 // import { request } from '../../utils';
-import { Input, Icon, Button } from '../../components'
-import styled from 'styled-components'
+import { Input, Icon, Button, AuthError } from '../../components';
+import styled from 'styled-components';
 
-// const authFormSchema = yup.object().shape({
-//   login: yup
-//     .string()
-//     .required('Заполните логин')
-//     .matches(/^\w+$/, 'Неверно заполнен логин. Допускаются только буквы и цифры')
-//     .min(3, 'Неверно заполнен логин. Минимум 3 символа')
-//     .max(15, 'неверно заполнен логин. Максимум 15 символов'),
-//   password: yup
-//     .string()
-//     .required('Заполните пароль')
-//     .matches(/^[\w#%]+$/, 'Неверно заполнен пароль. Допускаются только буквы, цифры и знаки # %')
-//     .min(3, 'Неверно заполнен пароль. Минимум 3 символа')
-//     .max(30, 'неверно заполнен пароль. Максимум 15 символов'),
-// });
-
-// const StyledLink = styled(Link)`
-//   text-decoration: underline;
-//   font-size: 12px;
-//   margin: 10px 0px;
-// `
+const regFormSchema = yup.object().shape({
+  login: yup
+    .string()
+    .required('Заполните логин')
+    .matches(/^\w+$/, 'Неверно заполнен логин. Допускаются только буквы и цифры')
+    .min(3, 'Неверно заполнен логин. Минимум 3 символа')
+    .max(15, 'Неверно заполнен логин. Максимум 15 символов'),
+  password: yup
+    .string()
+    .required('Заполните пароль')
+    .matches(/^[\w#%]+$/, 'Неверно заполнен пароль. Допускаются только буквы, цифры и знаки # %')
+    .min(5, 'Неверно заполнен пароль. Минимум 3 символа')
+    .max(30, 'Неверно заполнен пароль. Максимум 15 символов'),
+  passcheck: yup.string().oneOf([yup.ref('password'), null], 'Пароли не совпадают'),
+});
 
 const RegistrationContainer = ({ className }) => {
   // const dispatch = useDispatch()
 
-  // const {
-  //   register,
-  //   reset,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm({
-  //   defaultValues: {
-  //     login: '',
-  //     password: '',
-  //   },
-  //   resolver: yupResolver(authFormSchema),
-  // })
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      login: '',
+      password: '',
+      passcheck: '',
+    },
+    resolver: yupResolver(regFormSchema),
+  });
 
   // const role = useSelector(roleSelector)
-  // const [serverError, setServerError] = useState(null)
-  // useResetForm(reset)
+  const [serverError, setServerError] = useState(null);
+  //useResetForm(reset);
 
-  // const onSubmit = ({ login, password }) => {
-  //   request('/login', 'POST', { login, password }).then(({ error, user }) => {
-  //     if (error) {
-  //       setServerError(`Ошибка запроса: ${error}`)
-  //       return
-  //     }
+  const onSubmit = ({ login, password }) => {
+    console.log(login, password);
+    setServerError(null);
+    // request('/register', 'POST', { login, password }).then(({ error, user }) => {
+    //   if (error) {
+    //     setServerError(`Ошибка запроса: ${error}`);
+    //     return;
+    //   }
+    //   dispatch(setUser(user));
+    //   sessionStorage.setItem('userData', JSON.stringify(user));
+    // });
+  };
 
-  //     dispatch(setUser(user))
-  //     sessionStorage.setItem('userData', JSON.stringify(user))
-  //   })
-  // }
-
-  // const formError = errors?.login?.message || errors?.password?.message
-  // const errorMessage = formError || serverError
+  const formError = errors?.login?.message || errors?.password?.message || errors?.passcheck?.message;
+  const errorMessage = formError || serverError;
 
   // if (role !== ROLE.GUEST) {
   //   return <Navigate to="/" />
@@ -80,43 +75,36 @@ const RegistrationContainer = ({ className }) => {
         <Icon id="fa-empire" size="24px" margin="10px" />
         <h3>Регистрация</h3>
       </header>
-      <form autoComplete="off">
-        <Input type="text" size="12px" placeholder="Логин..." />
-        <Input type="password" size="12px" placeholder="Пароль..." />
-        <Input type="password" size="12px" placeholder="Повторить..." />
-        <Button width="100%">Регистрация</Button>
-      </form>
-      {/* <h2>Авторизация</h2>
-      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-        <Input
-          type="text"
-          placeholder="Логин..."
-          {...register('login', {
-            onChange: () => setServerError(null),
-          })}
-        />
-        <Input
-          type="password"
-          placeholder="Пароль..."
-          {...register('password', {
-            onChange: () => setServerError(null),
-          })}
-        />
-        <Button type="submit" disabled={!!formError} width="300px">
-          Авторизация
+      <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+        <Input type="text" size="12px" placeholder="Логин..." {...register('login')} />
+        <Input type="password" size="12px" placeholder="Пароль..." {...register('password')} />
+        <Input type="password" size="12px" placeholder="Повторить..." {...register('passcheck')} />
+        <Button type="submit" width="100%" disabled={!!formError}>
+          Регистрация
         </Button>
         {errorMessage && <AuthError>{errorMessage}</AuthError>}
-        <StyledLink to="/register">Регистрация</StyledLink>
-      </form> */}
+      </form>
     </div>
-  )
-}
+  );
+};
 
 export const Registration = styled(RegistrationContainer)`
   position: fixed;
   right: 5px;
   background-color: #405060;
   width: 230px;
+  box-shadow: 0px 0px 17px #000;
+  transform: translateX(100%);
+  animation: ani 1s forwards;
+
+  @keyframes ani {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
 
   & > header {
     display: flex;
@@ -132,14 +120,4 @@ export const Registration = styled(RegistrationContainer)`
     margin: 10px;
     align-items: stretch;
   }
-`
-
-// display: flex;
-// flex-direction: column;
-// align-items: center;
-
-// & > form {
-//   display: flex;
-//   flex-direction: column;
-//   width: 300px;
-// }
+`;

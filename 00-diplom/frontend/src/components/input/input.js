@@ -1,8 +1,9 @@
-import styled from 'styled-components'
+import { forwardRef } from 'react';
+import styled from 'styled-components';
 
-const InputContainer = ({ className, ...props }) => {
-  return <input className={className} {...props} />
-}
+const InputContainer = forwardRef(({ className, ...props }, ref) => {
+  return <input className={className} {...props} ref={ref} />;
+});
 
 export const Input = styled(InputContainer)`
   display: block;
@@ -14,4 +15,4 @@ export const Input = styled(InputContainer)`
   color: #212529;
   background-color: #fff;
   border: 1px solid #bdbdbd;
-`
+`;
