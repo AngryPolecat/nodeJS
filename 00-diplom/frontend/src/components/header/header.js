@@ -1,5 +1,4 @@
-import { Logo } from './components/logo/logo'
-import { User } from './components/user/user'
+import { Logo, User } from './components'
 import styled from 'styled-components'
 
 const HeaderContainer = ({ className }) => {

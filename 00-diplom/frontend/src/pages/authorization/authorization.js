@@ -1,17 +1,16 @@
-// import { useDispatch, useSelector } from 'react-redux';
-// import { Link, Navigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-// import { setUser } from '../../actions';
-// import { roleSelector } from '../../selectors';
-// import { ROLE } from '../../const';
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, Navigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import { setUser } from '../../actions'
+import { userRoleSelector } from '../../selectors'
+import { ROLE } from '../../const'
 // import { useResetForm } from '../../hooks';
-// import { request } from '../../utils';
-import { Link } from 'react-router-dom';
-import { AuthError, Input, Icon, Button } from '../../components';
-import styled from 'styled-components';
+import { request } from '../../utils'
+import { AuthError, Input, Icon, Button } from '../../components'
+import styled from 'styled-components'
 
 const authFormSchema = yup.object().shape({
   login: yup
@@ -26,10 +25,10 @@ const authFormSchema = yup.object().shape({
     .matches(/^[\w#%]+$/, 'Неверно заполнен пароль. Допускаются только буквы, цифры и знаки # %')
     .min(3, 'Неверно заполнен пароль. Минимум 3 символа')
     .max(30, 'неверно заполнен пароль. Максимум 15 символов'),
-});
+})
 
 const AuthorizationContainer = ({ className }) => {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const {
     register,
@@ -42,31 +41,30 @@ const AuthorizationContainer = ({ className }) => {
       password: '',
     },
     resolver: yupResolver(authFormSchema),
-  });
+  })
 
-  // const role = useSelector(roleSelector)
-  const [serverError, setServerError] = useState(null);
+  const role = useSelector(userRoleSelector)
+  const [serverError, setServerError] = useState(null)
   // useResetForm(reset)
 
   const onSubmit = ({ login, password }) => {
-    console.log(login, password);
-    setServerError(null);
-    //   request('/login', 'POST', { login, password }).then(({ error, user }) => {
-    //     if (error) {
-    //       setServerError(`Ошибка запроса: ${error}`)
-    //       return
-    //     }
-    //     dispatch(setUser(user))
-    //     sessionStorage.setItem('userData', JSON.stringify(user))
-    //   })
-  };
+    request('/login', 'POST', { login, password }).then(({ error, user }) => {
+      if (error) {
+        setServerError(`Ошибка запроса: ${error}`)
+        return
+      }
+      dispatch(setUser(user))
+      sessionStorage.setItem('userData', JSON.stringify(user))
+    })
+  }
 
-  const formError = errors?.login?.message || errors?.password?.message;
-  const errorMessage = formError || serverError;
+  const formError = errors?.login?.message || errors?.password?.message
+  const errorMessage = formError || serverError
+  console.log(role)
 
-  // if (role !== ROLE.GUEST) {
-  //   return <Navigate to="/" />
-  // }
+  if (role !== ROLE.GUEST) {
+    return <Navigate to="/" />
+  }
 
   return (
     <div className={className}>
@@ -88,8 +86,8 @@ const AuthorizationContainer = ({ className }) => {
         {errorMessage && <AuthError>{errorMessage}</AuthError>}
       </form>
     </div>
-  );
-};
+  )
+}
 
 export const Authorization = styled(AuthorizationContainer)`
   position: fixed;
@@ -132,4 +130,4 @@ export const Authorization = styled(AuthorizationContainer)`
   & a {
     color: black;
   }
-`;
+`

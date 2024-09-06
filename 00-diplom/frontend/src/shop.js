@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom'
 import { Header, Footer } from './components'
-// import { useLayoutEffect } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useLayoutEffect } from 'react'
+import { useDispatch } from 'react-redux'
 // import { Header, Footer, Modal, Error } from './components';
 // import { Authorization, Registration, Users, Post, Main } from './pages';
-// import { setUser } from './actions';
+import { setUser } from './actions'
 // import { ERROR } from './const';
 import { Authorization, Main, Registration } from './pages'
 import styled from 'styled-components'
@@ -20,19 +20,19 @@ const Page = styled.div`
 `
 
 export const Shop = () => {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-  // useLayoutEffect(() => {
-  //   const currentUserDataJSON = sessionStorage.getItem('userData')
+  useLayoutEffect(() => {
+    const currentUserDataJSON = sessionStorage.getItem('userData')
 
-  //   if (!currentUserDataJSON) {
-  //     return
-  //   }
+    if (!currentUserDataJSON) {
+      return
+    }
 
-  //   const currentUserData = JSON.parse(currentUserDataJSON)
+    const currentUserData = JSON.parse(currentUserDataJSON)
 
-  //   dispatch(setUser({ ...currentUserData, roleId: Number(currentUserData.roleId) }))
-  // }, [dispatch])
+    dispatch(setUser({ ...currentUserData, roleId: Number(currentUserData.roleId) }))
+  }, [dispatch])
 
   return (
     <App>
