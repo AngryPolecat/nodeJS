@@ -1,16 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, Navigate } from 'react-router-dom'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import { setUser } from '../../actions'
-import { userRoleSelector } from '../../selectors'
-import { ROLE } from '../../const'
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { setUser, REGISTER, WAS_LOGIN } from '../../actions';
 // import { useResetForm } from '../../hooks';
-import { request } from '../../utils'
-import { AuthError, Input, Icon, Button } from '../../components'
-import styled from 'styled-components'
+import { request } from '../../utils';
+import { AuthError, Input, Icon, Button } from '../../components';
+import styled from 'styled-components';
 
 const authFormSchema = yup.object().shape({
   login: yup
@@ -25,10 +22,10 @@ const authFormSchema = yup.object().shape({
     .matches(/^[\w#%]+$/, 'Неверно заполнен пароль. Допускаются только буквы, цифры и знаки # %')
     .min(3, 'Неверно заполнен пароль. Минимум 3 символа')
     .max(30, 'неверно заполнен пароль. Максимум 15 символов'),
-})
+});
 
 const AuthorizationContainer = ({ className }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -41,30 +38,29 @@ const AuthorizationContainer = ({ className }) => {
       password: '',
     },
     resolver: yupResolver(authFormSchema),
-  })
+  });
 
-  const role = useSelector(userRoleSelector)
-  const [serverError, setServerError] = useState(null)
+  const [serverError, setServerError] = useState(null);
   // useResetForm(reset)
 
   const onSubmit = ({ login, password }) => {
     request('/login', 'POST', { login, password }).then(({ error, user }) => {
       if (error) {
-        setServerError(`Ошибка запроса: ${error}`)
-        return
+        setServerError(`Ошибка запроса: ${error}`);
+        return;
       }
-      dispatch(setUser(user))
-      sessionStorage.setItem('userData', JSON.stringify(user))
-    })
-  }
+      dispatch(setUser(user));
+      dispatch(WAS_LOGIN);
+      sessionStorage.setItem('userData', JSON.stringify(user));
+    });
+  };
 
-  const formError = errors?.login?.message || errors?.password?.message
-  const errorMessage = formError || serverError
-  console.log(role)
+  const handlerRegister = () => {
+    dispatch(REGISTER);
+  };
 
-  if (role !== ROLE.GUEST) {
-    return <Navigate to="/" />
-  }
+  const formError = errors?.login?.message || errors?.password?.message;
+  const errorMessage = formError || serverError;
 
   return (
     <div className={className}>
@@ -76,9 +72,9 @@ const AuthorizationContainer = ({ className }) => {
         <Input type="text" size="12px" placeholder="Логин..." {...register('login')} />
         <Input type="password" size="12px" placeholder="Пароль..." {...register('password')} />
         <div className="button-container">
-          <Link to="/register">
-            <Button margin="0">Регистрация</Button>
-          </Link>
+          <Button margin="0" onClick={handlerRegister}>
+            Регистрация
+          </Button>
           <Button margin="0 0 0 10px" disabled={!!formError}>
             Вход
           </Button>
@@ -86,8 +82,8 @@ const AuthorizationContainer = ({ className }) => {
         {errorMessage && <AuthError>{errorMessage}</AuthError>}
       </form>
     </div>
-  )
-}
+  );
+};
 
 export const Authorization = styled(AuthorizationContainer)`
   position: fixed;
@@ -97,6 +93,7 @@ export const Authorization = styled(AuthorizationContainer)`
   box-shadow: 0px 0px 17px #000;
   transform: translateX(100%);
   animation: ani 1s forwards;
+  top: 100px;
 
   @keyframes ani {
     0% {
@@ -130,4 +127,4 @@ export const Authorization = styled(AuthorizationContainer)`
   & a {
     color: black;
   }
-`
+`;

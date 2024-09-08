@@ -3,8 +3,8 @@ const mapUser = (user) => {
     id: user.id,
     login: user.login,
     roleId: user.role,
-    createdAt: user.createdAt,
-  }
-}
+    createdAt: user.createdAt.toLocaleDateString().padStart(10, '0'),
+  };
+};
 
-module.exports = mapUser
+module.exports = mapUser;

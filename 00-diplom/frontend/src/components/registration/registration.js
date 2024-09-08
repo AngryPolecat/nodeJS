@@ -1,16 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import { setUser } from '../../actions'
-import { userRoleSelector } from '../../selectors'
-import { ROLE } from '../../const'
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { setUser, WAS_LOGIN } from '../../actions';
 //import { useResetForm } from '../../hooks';
-import { request } from '../../utils'
-import { Input, Icon, Button, AuthError } from '../../components'
-import styled from 'styled-components'
+import { request } from '../../utils';
+import { Input, Icon, Button, AuthError } from '../../components';
+import styled from 'styled-components';
 
 const regFormSchema = yup.object().shape({
   login: yup
@@ -26,10 +23,10 @@ const regFormSchema = yup.object().shape({
     .min(5, 'Неверно заполнен пароль. Минимум 3 символа')
     .max(30, 'Неверно заполнен пароль. Максимум 15 символов'),
   passcheck: yup.string().oneOf([yup.ref('password'), null], 'Пароли не совпадают'),
-})
+});
 
 const RegistrationContainer = ({ className }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -43,29 +40,25 @@ const RegistrationContainer = ({ className }) => {
       passcheck: '',
     },
     resolver: yupResolver(regFormSchema),
-  })
+  });
 
-  const role = useSelector(userRoleSelector)
-  const [serverError, setServerError] = useState(null)
+  const [serverError, setServerError] = useState(null);
   //useResetForm(reset);
 
   const onSubmit = ({ login, password }) => {
     request('/register', 'POST', { login, password }).then(({ error, user }) => {
       if (error) {
-        setServerError(`Ошибка запроса: ${error}`)
-        return
+        setServerError(`Ошибка запроса: ${error}`);
+        return;
       }
-      dispatch(setUser(user))
-      sessionStorage.setItem('userData', JSON.stringify(user))
-    })
-  }
+      dispatch(setUser(user));
+      dispatch(WAS_LOGIN);
+      sessionStorage.setItem('userData', JSON.stringify(user));
+    });
+  };
 
-  const formError = errors?.login?.message || errors?.password?.message || errors?.passcheck?.message
-  const errorMessage = formError || serverError
-
-  if (role !== ROLE.GUEST) {
-    return <Navigate to="/" />
-  }
+  const formError = errors?.login?.message || errors?.password?.message || errors?.passcheck?.message;
+  const errorMessage = formError || serverError;
 
   return (
     <div className={className}>
@@ -83,8 +76,8 @@ const RegistrationContainer = ({ className }) => {
         {errorMessage && <AuthError>{errorMessage}</AuthError>}
       </form>
     </div>
-  )
-}
+  );
+};
 
 export const Registration = styled(RegistrationContainer)`
   position: fixed;
@@ -94,6 +87,7 @@ export const Registration = styled(RegistrationContainer)`
   box-shadow: 0px 0px 17px #000;
   transform: translateX(100%);
   animation: ani 1s forwards;
+  top: 100px;
 
   @keyframes ani {
     0% {
@@ -118,4 +112,4 @@ export const Registration = styled(RegistrationContainer)`
     margin: 10px;
     align-items: stretch;
   }
-`
+`;

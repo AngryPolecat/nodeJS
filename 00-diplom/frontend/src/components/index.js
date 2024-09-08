@@ -4,3 +4,6 @@ export * from './footer/footer';
 export * from './input/input';
 export * from './button/button';
 export * from './auth-error/auth-error';
+export * from './authorization/authorization';
+export * from './registration/registration';
+export * from './message/message';

@@ -1,5 +1,8 @@
 const express = require('express');
-const { getGroups } = require('../controllers/catalog');
+const auth = require('../middlewares/auth');
+const hasRole = require('../middlewares/hasRole');
+const { addGroup, getGroups, updateGroup, deleteGroup } = require('../controllers/catalog');
+const ROLES = require('../const/roles');
 
 const router = express.Router({ mergeParams: true });
 
@@ -8,21 +11,37 @@ router.get('/', async (req, res) => {
   res.send({ data: groups });
 });
 
-// app.post('/catalog', hasRole([ROLES.ADMIN]), async (req, res) => {
-//   const group = await addGroup(req.body.group)
-//   res.send({ data: group })
-// })
+router.post('/', auth, hasRole([ROLES.ADMIN]), async (req, res) => {
+  try {
+    const group = await addGroup({
+      group: req.body.group.title,
+      image: req.body.group.url,
+    });
+    res.send({ data: group });
+  } catch (e) {
+    res.send({ error: e.message });
+  }
+});
 
-// app.patch('/catalog/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-//   const group = await updateGroup(req.params.id, {
-//     group: req.body.group,
-//   })
-//   res.send({ data: group })
-// })
+router.patch('/:id', auth, hasRole([ROLES.ADMIN]), async (req, res) => {
+  try {
+    const group = await updateGroup(req.params.id, {
+      group: req.body.group.title,
+      image: req.body.group.url,
+    });
+    res.send({ data: group });
+  } catch (e) {
+    res.send({ error: e.message });
+  }
+});
 
-// app.delete('/catalog/:id', hasRole([ROLES.ADMIN]), async (req, res) => {
-//   await deleteGroup(req.params.id)
-//   res.send({ error: null })
-// })
+router.delete('/:id', auth, hasRole([ROLES.ADMIN]), async (req, res) => {
+  try {
+    await deleteGroup(req.params.id);
+    res.send({ error: null });
+  } catch (e) {
+    res.send({ error: e.message });
+  }
+});
 
 module.exports = router;
