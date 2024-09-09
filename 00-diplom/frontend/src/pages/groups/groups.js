@@ -1,38 +1,48 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { request } from '../../utils';
-import { Group } from './components/group/group';
-import { Input, Icon } from '../../components';
-import { openMessage, CLOSE_MESSAGE } from '../../actions';
-import styled from 'styled-components';
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { request } from '../../utils'
+import { Group } from './components/group/group'
+import { Input, Icon } from '../../components'
+import { openMessage, CLOSE_MESSAGE } from '../../actions'
+import styled from 'styled-components'
 
 const GroupsContainer = ({ className }) => {
-  const dispatch = useDispatch();
-  const [groups, setGroups] = useState([]);
-  const [titleValue, setTitleValue] = useState('');
-  const [urlImageValue, setUrlImageValue] = useState('');
-  const [updateGroups, setUpdateGroups] = useState(false);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [groups, setGroups] = useState([])
+  const [titleValue, setTitleValue] = useState('')
+  const [urlImageValue, setUrlImageValue] = useState('')
+  const [updateGroups, setUpdateGroups] = useState(false)
 
   useEffect(() => {
-    request('/groups', 'GET').then(({ data }) => setGroups(data));
-  }, [updateGroups]);
+    request('/groups', 'GET').then((groups) => {
+      if (groups.error) {
+        dispatch(openMessage(groups.error))
+        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000)
+        navigate('/')
+        return
+      }
+      setGroups(groups.data)
+    })
+  }, [updateGroups, dispatch, navigate])
 
-  const handlerChangeTitle = ({ target }) => setTitleValue(target.value);
+  const handlerChangeTitle = ({ target }) => setTitleValue(target.value)
 
-  const handlerChangeImageUrl = ({ target }) => setUrlImageValue(target.value);
+  const handlerChangeImageUrl = ({ target }) => setUrlImageValue(target.value)
 
   const handlerSaveNewGroup = () => {
     request(`/groups`, 'POST', { group: { title: titleValue, url: urlImageValue } }).then((res) => {
       if (res.error) {
-        dispatch(openMessage(res.error));
-        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000);
-        return;
+        dispatch(openMessage(res.error))
+        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000)
+        return
       }
-      setTitleValue('');
-      setUrlImageValue('');
-      setUpdateGroups(!updateGroups);
-    });
-  };
+      setTitleValue('')
+      setUrlImageValue('')
+      setUpdateGroups(!updateGroups)
+    })
+  }
 
   return (
     <div className={className}>
@@ -49,12 +59,12 @@ const GroupsContainer = ({ className }) => {
           <Icon id="fa-floppy-o" size="20px" margin="0 0 0 10px" onClick={handlerSaveNewGroup} />
         </div>
         {groups.map((group) => {
-          return <Group key={group.id} group={group} onUpdateGroups={() => setUpdateGroups(!updateGroups)} />;
+          return <Group key={group.id} group={group} onUpdateGroups={() => setUpdateGroups(!updateGroups)} />
         })}
       </ul>
     </div>
-  );
-};
+  )
+}
 
 export const Groups = styled(GroupsContainer)`
   width: 1000px;
@@ -98,4 +108,4 @@ export const Groups = styled(GroupsContainer)`
       }
     }
   }
-`;
+`

@@ -1,41 +1,41 @@
-import { Routes, Route } from 'react-router-dom';
-import { Header, Footer, Authorization, Registration, Message } from './components';
-import { useLayoutEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route } from 'react-router-dom'
+import { Header, Footer, Authorization, Registration, Message } from './components'
+import { useLayoutEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 // import { Modal, Error } from './components';
-import { setUser } from './actions';
+import { setUser } from './actions'
 // import { ERROR } from './const';
-import { Main, Users, Basket, Groups } from './pages';
-import { flagLoginSelector, flagRegisterSelector, messageSelector } from './selectors';
-import styled from 'styled-components';
+import { Main, Users, Basket, Groups } from './pages'
+import { flagLoginSelector, flagRegisterSelector, messageSelector } from './selectors'
+import styled from 'styled-components'
 
 const App = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const Page = styled.div`
   text-align: center;
   margin-top: 100px;
-`;
+`
 
 export const Shop = () => {
-  const dispatch = useDispatch();
-  const stateFlagLogin = useSelector(flagLoginSelector);
-  const stateFlagRegister = useSelector(flagRegisterSelector);
-  const message = useSelector(messageSelector);
+  const dispatch = useDispatch()
+  const stateFlagLogin = useSelector(flagLoginSelector)
+  const stateFlagRegister = useSelector(flagRegisterSelector)
+  const message = useSelector(messageSelector)
 
   useLayoutEffect(() => {
-    const currentUserDataJSON = sessionStorage.getItem('userData');
+    const currentUserDataJSON = sessionStorage.getItem('userData')
 
     if (!currentUserDataJSON) {
-      return;
+      return
     }
 
-    const currentUserData = JSON.parse(currentUserDataJSON);
+    const currentUserData = JSON.parse(currentUserDataJSON)
 
-    dispatch(setUser({ ...currentUserData, roleId: Number(currentUserData.roleId) }));
-  }, [dispatch]);
+    dispatch(setUser({ ...currentUserData, roleId: Number(currentUserData.roleId) }))
+  }, [dispatch])
 
   return (
     <App>
@@ -53,8 +53,8 @@ export const Shop = () => {
       {message.status ? <Message text={message.text} /> : null}
       <Footer />
     </App>
-  );
-};
+  )
+}
 
 // // <Header />
 // //{' '}

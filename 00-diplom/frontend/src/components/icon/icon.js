@@ -10,4 +10,5 @@ export const Icon = styled(IconContainer)`
   font-size: ${({ size = '20px' }) => size};
   margin: ${({ margin = 0 }) => margin};
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  color: ${({ disabled }) => (disabled ? '#A9A9A9' : 'inherit')};
 `

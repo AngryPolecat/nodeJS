@@ -1,24 +1,26 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Icon } from '../../../../components';
-import { userRoleSelector, userLoginSelector } from '../../../../selectors';
-import { logout, LOGIN } from '../../../../actions';
-import { ROLE } from '../../../../const';
-import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { Icon } from '../../../../components'
+import { userRoleSelector, userLoginSelector } from '../../../../selectors'
+import { logout, LOGIN } from '../../../../actions'
+import { ROLE } from '../../../../const'
+import styled from 'styled-components'
 
 const UserContainer = ({ className }) => {
-  const dispatch = useDispatch();
-  const login = useSelector(userLoginSelector);
-  const role = useSelector(userRoleSelector);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const login = useSelector(userLoginSelector)
+  const role = useSelector(userRoleSelector)
 
   const handlerLogout = () => {
-    dispatch(logout());
-    sessionStorage.removeItem('userData');
-  };
+    dispatch(logout())
+    sessionStorage.removeItem('userData')
+    navigate('/')
+  }
 
   const handlerAuth = () => {
-    dispatch(LOGIN);
-  };
+    dispatch(LOGIN)
+  }
 
   return (
     <div className={className}>
@@ -51,8 +53,8 @@ const UserContainer = ({ className }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 export const User = styled(UserContainer)`
   & .buttons-panel {
@@ -75,4 +77,4 @@ export const User = styled(UserContainer)`
       margin-right: 20px;
     }
   }
-`;
+`

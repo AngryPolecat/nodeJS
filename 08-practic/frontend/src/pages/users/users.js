@@ -1,32 +1,32 @@
-import { useState, useEffect } from 'react';
-import { UserRow, TableRow } from './components';
-import { PrivateContent } from '../../components';
-import { ROLE } from '../../const';
-import { request } from '../../utils';
-import styled from 'styled-components';
+import { useState, useEffect } from 'react'
+import { UserRow, TableRow } from './components'
+import { PrivateContent } from '../../components'
+import { ROLE } from '../../const'
+import { request } from '../../utils'
+import styled from 'styled-components'
 
 const UsersContainer = ({ className }) => {
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [roles, setRoles] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [roles, setRoles] = useState([])
+  const [users, setUsers] = useState([])
+  const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false)
 
   useEffect(() => {
     Promise.all([request('/users/roles', 'GET'), request('/users', 'GET')]).then(([rolesRes, usersRes]) => {
       if (rolesRes.error || usersRes.error) {
-        setErrorMessage(rolesRes.error || usersRes.error);
-        return;
+        setErrorMessage(rolesRes.error || usersRes.error)
+        return
       }
-      setRoles(rolesRes.data);
-      setUsers(usersRes.data);
-    });
-  }, [shouldUpdateUserList]);
+      setRoles(rolesRes.data)
+      setUsers(usersRes.data)
+    })
+  }, [shouldUpdateUserList])
 
   const handlerRemoveUser = (userId) => {
     request(`/users/${userId}`, 'DELETE').then(() => {
-      setShouldUpdateUserList(!shouldUpdateUserList);
-    });
-  };
+      setShouldUpdateUserList(!shouldUpdateUserList)
+    })
+  }
 
   return (
     <div className={className}>
@@ -44,8 +44,8 @@ const UsersContainer = ({ className }) => {
         </>
       </PrivateContent>
     </div>
-  );
-};
+  )
+}
 
 export const Users = styled(UsersContainer)`
   display: flex;
@@ -53,4 +53,4 @@ export const Users = styled(UsersContainer)`
   align-items: center;
   width: 570px;
   margin: 0 auto;
-`;
+`
