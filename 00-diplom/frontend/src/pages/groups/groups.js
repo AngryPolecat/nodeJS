@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, Navigate } from 'react-router-dom'
 import { request } from '../../utils'
 import { Group } from './components/group/group'
 import { Input, Icon } from '../../components'
 import { openMessage, CLOSE_MESSAGE } from '../../actions'
+import { ROLE } from '../../const'
+import { userRoleSelector } from '../../selectors'
 import styled from 'styled-components'
 
 const GroupsContainer = ({ className }) => {
@@ -14,9 +16,10 @@ const GroupsContainer = ({ className }) => {
   const [titleValue, setTitleValue] = useState('')
   const [urlImageValue, setUrlImageValue] = useState('')
   const [updateGroups, setUpdateGroups] = useState(false)
+  const role = useSelector(userRoleSelector)
 
   useEffect(() => {
-    request('/groups', 'GET').then((groups) => {
+    request('/groups?limit=0', 'GET').then((groups) => {
       if (groups.error) {
         dispatch(openMessage(groups.error))
         setTimeout(() => dispatch(CLOSE_MESSAGE), 4000)
@@ -42,6 +45,10 @@ const GroupsContainer = ({ className }) => {
       setUrlImageValue('')
       setUpdateGroups(!updateGroups)
     })
+  }
+
+  if (role !== ROLE.ADMIN) {
+    return <Navigate to="/" />
   }
 
   return (

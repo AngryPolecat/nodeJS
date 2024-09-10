@@ -1,0 +1,5 @@
+const PAGINATION_LIMIT = 9
+
+export const SETTINGS = {
+  PAGINATION_LIMIT,
+}

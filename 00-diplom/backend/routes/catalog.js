@@ -6,10 +6,10 @@ const ROLES = require('../const/roles')
 
 const router = express.Router({ mergeParams: true })
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const groups = await getGroups()
-    res.send({ data: groups })
+    const { groups, lastPage } = await getGroups(req.query.limit, req.query.page)
+    res.send({ data: groups, lastPage })
   } catch (e) {
     res.send({ error: e.message })
   }
@@ -26,6 +26,15 @@ router.post('/', auth, hasRole([ROLES.ADMIN]), async (req, res) => {
     res.send({ error: e.message })
   }
 })
+
+router.get('/:id'),
+  async (req, res) => {
+    try {
+      res.send({ data: products })
+    } catch (e) {
+      res.send({ error: e.message })
+    }
+  }
 
 router.patch('/:id', auth, hasRole([ROLES.ADMIN]), async (req, res) => {
   try {

@@ -18,6 +18,12 @@ const ProductScheme = mongoose.Schema(
         validator: validator.isURL,
       },
     },
+    cost: {
+      type: Number,
+      validate: {
+        validator: validator.isNumeric,
+      },
+    },
     group: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Group',

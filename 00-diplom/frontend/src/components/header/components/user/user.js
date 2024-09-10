@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useMatch } from 'react-router-dom'
 import { Icon } from '../../../../components'
 import { userRoleSelector, userLoginSelector } from '../../../../selectors'
 import { logout, LOGIN } from '../../../../actions'
@@ -7,6 +7,7 @@ import { ROLE } from '../../../../const'
 import styled from 'styled-components'
 
 const UserContainer = ({ className }) => {
+  const inGroup = useMatch('/groups/:groupId')
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const login = useSelector(userLoginSelector)
@@ -35,9 +36,11 @@ const UserContainer = ({ className }) => {
           <div className="buttons-panel">
             {role === ROLE.ADMIN ? (
               <>
-                <Link to="/products">
-                  <Icon id="fa-plus-square-o" size="44px" title="Добавить товар" />
-                </Link>
+                {inGroup ? (
+                  <Link to={inGroup ? `/groups/${inGroup.params.groupId}/products/new` : '/'}>
+                    <Icon id="fa-plus-square-o" size="44px" title="Добавить товар" />
+                  </Link>
+                ) : null}
                 <Link to="/groups">
                   <Icon id="fa-book" size="38px" margin="3px 0 0 15px" title="Группы товаров" />
                 </Link>

@@ -1,11 +1,11 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { Header, Footer, Authorization, Registration, Message } from './components'
 import { useLayoutEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import { Modal, Error } from './components';
 import { setUser } from './actions'
 // import { ERROR } from './const';
-import { Main, Users, Basket, Groups } from './pages'
+import { Main, Users, Basket, Groups, Products, Product } from './pages'
 import { flagLoginSelector, flagRegisterSelector, messageSelector } from './selectors'
 import styled from 'styled-components'
 
@@ -21,6 +21,7 @@ const Page = styled.div`
 
 export const Shop = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const stateFlagLogin = useSelector(flagLoginSelector)
   const stateFlagRegister = useSelector(flagRegisterSelector)
   const message = useSelector(messageSelector)
@@ -35,7 +36,7 @@ export const Shop = () => {
     const currentUserData = JSON.parse(currentUserDataJSON)
 
     dispatch(setUser({ ...currentUserData, roleId: Number(currentUserData.roleId) }))
-  }, [dispatch])
+  }, [dispatch, navigate])
 
   return (
     <App>
@@ -48,6 +49,10 @@ export const Shop = () => {
           <Route path="/basket" element={<Basket />} />
           <Route path="/users" element={<Users />} />
           <Route path="/groups" element={<Groups />} />
+          <Route path="/groups/:groupId" element={<Products />} />
+          <Route path="/groups/:groupId/products/new" element={<Product />} />
+          <Route path="/groups/:groupId/products/:productId" element={<Product />} />
+          <Route path="/groups/:groupId/products/:productId/edit" element={<Product />} />
         </Routes>
       </Page>
       {message.status ? <Message text={message.text} /> : null}
