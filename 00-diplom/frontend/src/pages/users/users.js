@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { User } from './components/user/user'
 import { request } from '../../utils'
 import { openMessage, CLOSE_MESSAGE } from '../../actions'
+import { SETTINGS } from '../../const'
 import styled from 'styled-components'
 
 const UsersContainer = ({ className }) => {
@@ -17,7 +18,7 @@ const UsersContainer = ({ className }) => {
     Promise.all([request('/users', 'GET'), request('/users/roles', 'GET')]).then(([users, roles]) => {
       if (users.error || roles.error) {
         dispatch(openMessage(users.error || roles.error))
-        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000)
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
         navigate('/')
         return
       }

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Icon } from '../../../../components'
 import { request } from '../../../../utils'
 import { openMessage, CLOSE_MESSAGE } from '../../../../actions'
+import { SETTINGS } from '../../../../const'
 import styled from 'styled-components'
 
 const UserContainer = ({ className, user: { id, login, roleId: selectedRole, createdAt }, roles, onUpdateUsers }) => {
@@ -18,7 +19,7 @@ const UserContainer = ({ className, user: { id, login, roleId: selectedRole, cre
     request(`/users/${id}`, 'DELETE').then((result) => {
       if (result.error) {
         dispatch(openMessage(result.error))
-        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000)
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
         return
       }
       onUpdateUsers()
@@ -29,7 +30,7 @@ const UserContainer = ({ className, user: { id, login, roleId: selectedRole, cre
     request(`/users/${id}`, 'PATCH', { role: currentRole }).then((result) => {
       if (result.error) {
         dispatch(openMessage(result.error))
-        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000)
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
         return
       }
       setInitialRole(currentRole)

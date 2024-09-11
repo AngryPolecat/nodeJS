@@ -5,7 +5,7 @@ import { request } from '../../utils'
 import { Group } from './components/group/group'
 import { Input, Icon } from '../../components'
 import { openMessage, CLOSE_MESSAGE } from '../../actions'
-import { ROLE } from '../../const'
+import { ROLE, SETTINGS } from '../../const'
 import { userRoleSelector } from '../../selectors'
 import styled from 'styled-components'
 
@@ -22,7 +22,7 @@ const GroupsContainer = ({ className }) => {
     request('/groups?limit=0', 'GET').then((groups) => {
       if (groups.error) {
         dispatch(openMessage(groups.error))
-        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000)
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
         navigate('/')
         return
       }
@@ -38,7 +38,7 @@ const GroupsContainer = ({ className }) => {
     request(`/groups`, 'POST', { group: { title: titleValue, url: urlImageValue } }).then((res) => {
       if (res.error) {
         dispatch(openMessage(res.error))
-        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000)
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
         return
       }
       setTitleValue('')

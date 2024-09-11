@@ -1,16 +1,15 @@
 import { forwardRef } from 'react'
 import styled from 'styled-components'
 
-const InputContainer = forwardRef(({ className, ...props }, ref) => {
-  return <input className={className} {...props} ref={ref} />
+const TextareaContainer = forwardRef(({ className, ...props }, ref) => {
+  return <textarea className={className} {...props} ref={ref} />
 })
 
-export const Input = styled(InputContainer)`
+export const Textarea = styled(TextareaContainer)`
   display: block;
   border-radius: 5px;
   padding: 7px;
   font-size: ${({ size = '20px' }) => size};
-  width: ${({ width = '100%' }) => width};
   margin: 0 0 10px 0;
   outline: none;
   color: #212529;

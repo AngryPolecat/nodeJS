@@ -1,41 +1,42 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Icon, Input } from '../../../../components';
-import { request } from '../../../../utils';
-import { openMessage, CLOSE_MESSAGE } from '../../../../actions';
-import styled from 'styled-components';
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Icon, Input } from '../../../../components'
+import { request } from '../../../../utils'
+import { openMessage, CLOSE_MESSAGE } from '../../../../actions'
+import { SETTINGS } from '../../../../const'
+import styled from 'styled-components'
 
 const GroupContainer = ({ className, group: { id, title, url, createdAt }, onUpdateGroups }) => {
-  const dispatch = useDispatch();
-  const [editMode, setEditMode] = useState(false);
-  const [titleValue, setTitleValue] = useState(title);
-  const [urlImageValue, setUrlImageValue] = useState(url);
+  const dispatch = useDispatch()
+  const [editMode, setEditMode] = useState(false)
+  const [titleValue, setTitleValue] = useState(title)
+  const [urlImageValue, setUrlImageValue] = useState(url)
 
   const handlerSaveGroup = () => {
     request(`/groups/${id}`, 'PATCH', { id, group: { title: titleValue, url: urlImageValue } }).then((res) => {
       if (res.error) {
-        dispatch(openMessage(res.error));
-        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000);
-        return;
+        dispatch(openMessage(res.error))
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
+        return
       }
-    });
-    setEditMode(!editMode);
-  };
+    })
+    setEditMode(!editMode)
+  }
 
-  const handlerChangeTitle = ({ target }) => setTitleValue(target.value);
+  const handlerChangeTitle = ({ target }) => setTitleValue(target.value)
 
-  const handlerChangeImageUrl = ({ target }) => setUrlImageValue(target.value);
+  const handlerChangeImageUrl = ({ target }) => setUrlImageValue(target.value)
 
   const handlerRemoveGroup = () => {
     request(`/groups/${id}`, 'DELETE').then((res) => {
       if (res.error) {
-        dispatch(openMessage(res.error));
-        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000);
-        return;
+        dispatch(openMessage(res.error))
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
+        return
       }
-      onUpdateGroups();
-    });
-  };
+      onUpdateGroups()
+    })
+  }
 
   return (
     <div className={className}>
@@ -70,8 +71,8 @@ const GroupContainer = ({ className, group: { id, title, url, createdAt }, onUpd
         <Icon id="fa-floppy-o" size="20px" margin="0 0 0 10px" onClick={handlerSaveGroup} />
       )}
     </div>
-  );
-};
+  )
+}
 
 export const Group = styled(GroupContainer)`
   display: flex;
@@ -129,4 +130,4 @@ export const Group = styled(GroupContainer)`
       }
     }
   }
-`;
+`

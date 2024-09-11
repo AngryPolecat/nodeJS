@@ -1,12 +1,12 @@
-import { useLayoutEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Icon, Input } from '../../../../components';
-import { sanitizeContent } from './utils/sanitize-content';
-import { savePostAsync } from '../../../../actions';
-import { useNavigate } from 'react-router-dom';
-import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../actions';
-import { PROP_TYPES } from '../../../../const';
-import styled from 'styled-components';
+import { useLayoutEffect, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Icon, Input } from '../../../../components'
+import { sanitizeContent } from './utils/sanitize-content'
+import { savePostAsync } from '../../../../actions'
+import { useNavigate } from 'react-router-dom'
+import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../actions'
+import { PROP_TYPES } from '../../../../const'
+import styled from 'styled-components'
 
 const Content = styled.div`
   text-align: left;
@@ -18,42 +18,42 @@ const Content = styled.div`
   & :focus {
     border: 2px solid #000;
   }
-`;
+`
 
 const PostFormContainer = ({ className, post: { id, title, content, imageUrl, publishedAt } }) => {
-  const [imageUrlValue, setImageUrlValue] = useState(imageUrl);
-  const [titleValue, setTitleValue] = useState(title);
-  const contentRef = useRef();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [imageUrlValue, setImageUrlValue] = useState(imageUrl)
+  const [titleValue, setTitleValue] = useState(title)
+  const contentRef = useRef()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useLayoutEffect(() => {
-    setImageUrlValue(imageUrl);
-    setTitleValue(title);
-  }, [imageUrl, title]);
+    setImageUrlValue(imageUrl)
+    setTitleValue(title)
+  }, [imageUrl, title])
 
   const handlerRemovePost = (postId) => {
     dispatch(
       openModal({
         text: 'Удалить статью?',
         onConfirm: () => {
-          dispatch(removePostAsync(postId)).then(() => navigate('/'));
-          dispatch(CLOSE_MODAL);
+          dispatch(removePostAsync(postId)).then(() => navigate('/'))
+          dispatch(CLOSE_MODAL)
         },
         onCancel: () => dispatch(CLOSE_MODAL),
       })
-    );
-  };
+    )
+  }
 
   const handlerSavePost = (postId) => {
     /** если не залогинен, то ошибка при сохранении TO DO */
-    const newContentPost = sanitizeContent(contentRef.current.innerHTML);
-    dispatch(savePostAsync(postId, { imageUrl: imageUrlValue, title: titleValue, content: newContentPost })).then(({ id }) => navigate(`/post/${id}`));
-  };
+    const newContentPost = sanitizeContent(contentRef.current.innerHTML)
+    dispatch(savePostAsync(postId, { imageUrl: imageUrlValue, title: titleValue, content: newContentPost })).then(({ id }) => navigate(`/post/${id}`))
+  }
 
-  const handlerChangeImageUrl = ({ target }) => setImageUrlValue(target.value);
+  const handlerChangeImageUrl = ({ target }) => setImageUrlValue(target.value)
 
-  const handlerChangeTitle = ({ target }) => setTitleValue(target.value);
+  const handlerChangeTitle = ({ target }) => setTitleValue(target.value)
 
   return (
     <div className={className}>
@@ -73,8 +73,8 @@ const PostFormContainer = ({ className, post: { id, title, content, imageUrl, pu
         {content}
       </Content>
     </div>
-  );
-};
+  )
+}
 
 export const PostForm = styled(PostFormContainer)`
   display: flex;
@@ -99,8 +99,8 @@ export const PostForm = styled(PostFormContainer)`
     flex-direction: row;
     line-height: 20px;
   }
-`;
+`
 
 PostForm.propTypes = {
   post: PROP_TYPES.POST.isRequired,
-};
+}

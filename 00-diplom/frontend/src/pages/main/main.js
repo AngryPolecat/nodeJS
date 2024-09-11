@@ -1,27 +1,27 @@
-import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { SETTINGS } from '../../const'
 import { request } from '../../utils'
-import { openMessage, CLOSE_MESSAGE } from '../../actions'
+import { setGroups, openMessage, CLOSE_MESSAGE } from '../../actions'
+import { groupsSelector } from '../../selectors'
 import { Group } from './components/group/group'
 import styled from 'styled-components'
 
 const MainContainer = ({ className }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [groups, setGroups] = useState([])
+  const groups = useSelector(groupsSelector)
 
   useEffect(() => {
     const page = 1
     request(`/groups?page=${page}&limit=${SETTINGS.PAGINATION_LIMIT}`).then((groups) => {
       if (groups.error) {
         dispatch(openMessage(groups.error))
-        setTimeout(() => dispatch(CLOSE_MESSAGE), 4000)
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
         return
       }
-      setGroups(groups.data)
-      //console.log(groups.lastPage)
+      dispatch(setGroups(groups.data))
     })
   }, [dispatch])
 

@@ -9,7 +9,7 @@ const ProductContainer = ({ className }) => {
 
   //console.log(params.groupId)
 
-  return <div className={className}>{!isCreatingProduct && !isEditingProduct ? <ProductContent /> : <ProductForm />}</div>
+  return <div className={className}>{!isCreatingProduct && !isEditingProduct ? <ProductContent /> : <ProductForm groupId={params.groupId} />}</div>
 }
 
 export const Product = styled(ProductContainer)`
