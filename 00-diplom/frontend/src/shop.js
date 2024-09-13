@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import { Header, Footer, Authorization, Registration, Message } from './components'
+import { Header, Footer, Authorization, Registration, Message, Icon } from './components'
 import { useLayoutEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import { Modal, Error } from './components';
@@ -17,6 +17,28 @@ const App = styled.div`
 const Page = styled.div`
   text-align: center;
   margin-top: 100px;
+`
+
+const ButtonBackContainer = ({ className }) => {
+  const navigate = useNavigate()
+
+  return (
+    <div className={className}>
+      <Icon id="fa-hand-o-left" size="30px" margin="0 0 0 0" title="Назад" onClick={() => navigate(-1)} />
+    </div>
+  )
+}
+
+const ButtonBack = styled(ButtonBackContainer)`
+  position: fixed;
+  right: 10px;
+  bottom: 40px;
+  background-color: #405060;
+  box-shadow: 0px 0px 17px #000;
+  z-index: 3;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
 `
 
 export const Shop = () => {
@@ -41,6 +63,7 @@ export const Shop = () => {
   return (
     <App>
       <Header />
+      <ButtonBack />
       {stateFlagLogin ? <Authorization /> : null}
       {stateFlagRegister ? <Registration /> : null}
       <Page>

@@ -76,6 +76,7 @@ const GroupsContainer = ({ className }) => {
 export const Groups = styled(GroupsContainer)`
   width: 1000px;
   margin: 0 auto;
+  margin-bottom: 50px;
 
   & .new-group {
     display: flex;

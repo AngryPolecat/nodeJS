@@ -20,9 +20,13 @@ const ProductScheme = mongoose.Schema(
     },
     cost: {
       type: Number,
-      validate: {
-        validator: validator.isNumeric,
-      },
+      required: true,
+      default: 0,
+    },
+    count: {
+      type: Number,
+      required: true,
+      default: 0,
     },
     group: {
       type: mongoose.Schema.Types.ObjectId,

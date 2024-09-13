@@ -1,22 +1,85 @@
-import { useSelector } from 'react-redux'
+import { useEffect, useState, useLayoutEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Input, Icon, Textarea } from '../../../../components'
-import { groupsSelector } from '../../../../selectors'
+import { openMessage, CLOSE_MESSAGE, resetProduct } from '../../../../actions'
+import { SETTINGS } from '../../../../const'
+import { request } from '../../../../utils'
+import { productSelector } from '../../../../selectors'
 import styled from 'styled-components'
 
-const ProductFormContainer = ({ className, groupId }) => {
-  const groups = useSelector(groupsSelector)
+// const initialFormState = {
+//   title: '',
+//   group: null,
+//   url: '',
+//   cost: '',
+//   count: '',
+//   description: '',
+// }
 
-  const handlerChangeGroupProduct = () => {}
+const useStore = (product) => {
+  const [stateForm, setStateForm] = useState({ ...product })
+
+  return {
+    getState: () => stateForm,
+    updateStateForm: (field, value) => setStateForm({ ...stateForm, [field]: value }),
+  }
+}
+
+const ProductFormContainer = ({ className, groupId }) => {
+  const product = useSelector(productSelector)
+  console.log(product)
+
+  const { getState, updateStateForm } = useStore(product)
+  const { title, url, cost, count, description, group } = getState()
+  const [groups, setGroups] = useState([])
+  const params = useParams()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useLayoutEffect(() => {
+    dispatch(resetProduct(params.groupId))
+  }, [dispatch, params.groupId])
+
+  useEffect(() => {
+    request('/groups?limit=0', 'GET').then((groups) => {
+      if (groups.error) {
+        dispatch(openMessage(groups.error))
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
+        navigate('/')
+        return
+      }
+      setGroups(groups.data)
+    })
+  }, [dispatch, navigate])
+
+  const handlerChangeFieldForm = ({ target }) => {
+    const { name, value } = target
+    updateStateForm(name, value)
+  }
+
+  const handlerSaveProduct = () => {
+    // const requestUrl = product.id ? `${product.id}` : ''
+    // const method = product.id ? 'PATCH' : 'POST'
+    // request(`/groups/${groupId}/products/` + requestUrl, method, { title, url, cost, count, description, group }).then((product) => {
+    //   if (product.error) {
+    //     dispatch(openMessage(product.error))
+    //     setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
+    //     return
+    //   }
+    //   navigate(`/groups/${groupId}/products/${product.data.id}`)
+    // })
+  }
 
   return (
     <div className={className}>
       <div className="buttons">
-        <Icon id="fa-floppy-o" size="24px" margin="5px 0 0 15px" title="Сохранить товар" />
+        <Icon id="fa-floppy-o" size="24px" margin="5px 0 0 15px" title="Сохранить товар" onClick={handlerSaveProduct} />
         <Icon id="fa-trash-o" size="24px" margin="5px 0 0 15px" title="Удалить товар" />
       </div>
-      <Input type="text" placeholder="Наименование товара" size="14px" name="title" />
+      <Input type="text" placeholder="Наименование товара" size="14px" name="title" value={title} onChange={handlerChangeFieldForm} />
       <div className="groups-container">
-        <select value={groupId} onChange={handlerChangeGroupProduct} name="group">
+        <select value={group} onChange={handlerChangeFieldForm} name="group">
           {groups.map(({ id, title }) => (
             <option value={id} key={id}>
               {title}
@@ -24,11 +87,11 @@ const ProductFormContainer = ({ className, groupId }) => {
           ))}
         </select>
       </div>
-      <Input type="text" placeholder="URL адрес картинки товара" size="14px" name="url" />
-      <Input type="text" placeholder="Цена товара" size="14px" name="cost" width="150px" />
-      <Input type="text" placeholder="Количество товара" size="14px" name="count" width="150px" />
+      <Input type="text" placeholder="URL адрес картинки товара" size="14px" name="url" value={url} onChange={handlerChangeFieldForm} />
+      <Input type="text" placeholder="Цена товара" size="14px" name="cost" width="150px" value={cost} onChange={handlerChangeFieldForm} />
+      <Input type="text" placeholder="Количество товара" size="14px" name="count" width="150px" value={count} onChange={handlerChangeFieldForm} />
       <div className="content-container">
-        <Textarea placeholder="Описание товара" size="14px" name="description" />
+        <Textarea placeholder="Описание товара" size="14px" name="description" value={description} onChange={handlerChangeFieldForm} />
       </div>
     </div>
   )
@@ -52,7 +115,7 @@ export const ProductForm = styled(ProductFormContainer)`
   & textarea {
     width: 100%;
     resize: none;
-    height: 100px;
+    min-height: 500px;
   }
 
   & .groups-container {

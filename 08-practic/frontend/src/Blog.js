@@ -1,11 +1,11 @@
-import { Routes, Route } from 'react-router-dom';
-import { useLayoutEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Header, Footer, Modal, Error } from './components';
-import { Authorization, Registration, Users, Post, Main } from './pages';
-import { setUser } from './actions';
-import { ERROR } from './const';
-import styled from 'styled-components';
+import { Routes, Route } from 'react-router-dom'
+import { useLayoutEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { Header, Footer, Modal, Error } from './components'
+import { Authorization, Registration, Users, Post, Main } from './pages'
+import { setUser } from './actions'
+import { ERROR } from './const'
+import styled from 'styled-components'
 
 const AppColumn = styled.div`
   display: flex;
@@ -15,27 +15,27 @@ const AppColumn = styled.div`
   min-height: 100%;
   background-color: #fff;
   margin: 0 auto;
-`;
+`
 
 const Page = styled.div`
   text-align: center;
   margin-top: 120px;
-`;
+`
 
 export const Blog = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useLayoutEffect(() => {
-    const currentUserDataJSON = sessionStorage.getItem('userData');
+    const currentUserDataJSON = sessionStorage.getItem('userData')
 
     if (!currentUserDataJSON) {
-      return;
+      return
     }
 
-    const currentUserData = JSON.parse(currentUserDataJSON);
+    const currentUserData = JSON.parse(currentUserDataJSON)
 
-    dispatch(setUser({ ...currentUserData, roleId: Number(currentUserData.roleId) }));
-  }, [dispatch]);
+    dispatch(setUser({ ...currentUserData, roleId: Number(currentUserData.roleId) }))
+  }, [dispatch])
 
   return (
     <AppColumn>
@@ -55,5 +55,5 @@ export const Blog = () => {
       <Footer />
       <Modal />
     </AppColumn>
-  );
-};
+  )
+}
