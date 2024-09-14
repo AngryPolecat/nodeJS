@@ -1,5 +1,7 @@
-const MAX_PRODUCTS_ON_PAGE = 9
+const MAX_GROUPS_ON_PAGE = 9;
+const MAX_PRODUCTS_ON_PAGE = 12;
 
 module.exports = {
+  MAX_GROUPS_ON_PAGE,
   MAX_PRODUCTS_ON_PAGE,
-}
+};

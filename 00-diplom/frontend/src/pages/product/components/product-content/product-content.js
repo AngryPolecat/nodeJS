@@ -1,15 +1,14 @@
-import { useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { userRoleSelector, productSelector } from '../../../../selectors'
-import { ROLE } from '../../../../const'
-import { Icon } from '../../../../components'
-import styled from 'styled-components'
+import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { userRoleSelector } from '../../../../selectors';
+import { ROLE } from '../../../../const';
+import { Icon } from '../../../../components';
+import styled from 'styled-components';
 
-const ProductContentContainer = ({ className }) => {
-  const role = useSelector(userRoleSelector)
-  const { title, url, description, count, cost } = useSelector(productSelector)
-  const navigate = useNavigate()
-  const location = useLocation()
+const ProductContentContainer = ({ className, product: { title, url, description, count, cost } }) => {
+  const role = useSelector(userRoleSelector);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div className={className}>
@@ -39,8 +38,8 @@ const ProductContentContainer = ({ className }) => {
         <div className="product-content">{description}</div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const ProductContent = styled(ProductContentContainer)`
   width: 1000px;
@@ -93,4 +92,4 @@ export const ProductContent = styled(ProductContentContainer)`
     flex-direction: row;
     justify-content: end;
   }
-`
+`;
