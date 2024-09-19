@@ -22,9 +22,7 @@ const ProductContainer = ({ className }) => {
   }, [dispatch, params.groupId, isCreatingProduct]);
 
   useEffect(() => {
-    dispatch(resetProduct(params.groupId));
     if (!isCreatingProduct) {
-      //console.log('Product useEffect');
       request(`/groups/${params.groupId}/products/${params.productId}`, 'GET').then((product) => {
         if (product.error) {
           dispatch(openMessage(product.error));

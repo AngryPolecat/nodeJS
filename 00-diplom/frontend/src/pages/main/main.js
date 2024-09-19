@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { SETTINGS } from '../../const';
 import { request } from '../../utils';
-import { openMessage, CLOSE_MESSAGE } from '../../actions';
+import { openMessage, CLOSE_MESSAGE, setGroup } from '../../actions';
 import { Group } from './components/group/group';
 import { Pagination } from '../../components';
 import styled from 'styled-components';
@@ -27,8 +27,9 @@ const MainContainer = ({ className }) => {
     });
   }, [dispatch, page]);
 
-  const handlerClickGroup = (groupId) => {
-    navigate(`/groups/${groupId}`);
+  const handlerClickGroup = (group) => {
+    dispatch(setGroup(group));
+    navigate(`/groups/${group.id}`);
   };
 
   return (
@@ -38,7 +39,7 @@ const MainContainer = ({ className }) => {
       </Pagination>
       <div className="groups-container">
         {groups.map((group) => (
-          <Group key={group.id} group={group} onClick={() => handlerClickGroup(group.id)} />
+          <Group key={group.id} group={group} onClick={() => handlerClickGroup(group)} />
         ))}
       </div>
     </div>

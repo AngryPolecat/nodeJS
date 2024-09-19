@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { request } from '../../utils';
 import { openMessage, CLOSE_MESSAGE } from '../../actions';
 import { SETTINGS } from '../../const';
 import { Product } from './components/product/product';
 import { Pagination } from '../../components';
+import { groupSelector } from '../../selectors';
 import styled from 'styled-components';
 
 const ProductsContainer = ({ className }) => {
@@ -15,6 +16,7 @@ const ProductsContainer = ({ className }) => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
+  const group = useSelector(groupSelector);
 
   useEffect(() => {
     request(`/groups/${params.groupId}/products?page=${page}&limit=${SETTINGS.PAGINATION_LIMIT_PRODUCT}`, 'GET').then((products) => {
@@ -35,7 +37,7 @@ const ProductsContainer = ({ className }) => {
   return (
     <div className={className}>
       <Pagination page={page} lastPage={lastPage} onClickBack={() => setPage(page - 1)} onClickForward={() => setPage(page + 1)}>
-        Группа товаров {params.groupId}
+        {group.title}
       </Pagination>
       <div className="products-container">
         {products.map((product) => (
@@ -54,6 +56,8 @@ export const Products = styled(ProductsContainer)`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    border: 0px solid black;
+    padding: 0 20px;
   }
 
   & .pagination {

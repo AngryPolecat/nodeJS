@@ -45,7 +45,8 @@ router.post('/:id/products', auth, hasRole([ROLES.ADMIN]), async (req, res) => {
       description: req.body.description,
       group: req.body.group,
     });
-    res.send({ data: product });
+
+    res.send({ data: mapProduct(product) });
   } catch (e) {
     res.send({ error: e.message });
   }

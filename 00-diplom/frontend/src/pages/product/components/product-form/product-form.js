@@ -2,7 +2,7 @@ import { useEffect, useState, useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Input, Icon, Textarea } from '../../../../components';
-import { openMessage, CLOSE_MESSAGE } from '../../../../actions';
+import { openMessage, CLOSE_MESSAGE, setProduct } from '../../../../actions';
 import { SETTINGS } from '../../../../const';
 import { request } from '../../../../utils';
 //import { productSelector } from '../../../../selectors';
@@ -53,8 +53,6 @@ const ProductFormContainer = ({ className, product, groupId }) => {
   }, [product.title, product.url, product.cost, product.count, product.description, groupId]);
 
   useEffect(() => {
-    //console.log('Form useEffect');
-
     request('/groups?limit=0', 'GET').then((groups) => {
       if (groups.error) {
         dispatch(openMessage(groups.error));
@@ -80,6 +78,7 @@ const ProductFormContainer = ({ className, product, groupId }) => {
         setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
         return;
       }
+      dispatch(setProduct(product.data));
       navigate(`/groups/${groupId}/products/${product.data.id}`);
     });
   };
