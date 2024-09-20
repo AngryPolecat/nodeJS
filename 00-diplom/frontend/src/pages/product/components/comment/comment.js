@@ -25,7 +25,6 @@ const CommentContainer = ({ className }) => {
       dispatch(setProduct(id))
     })
   }
-  console.log(comments)
 
   return (
     <div className={className}>
@@ -36,7 +35,11 @@ const CommentContainer = ({ className }) => {
           <Icon id="fa-paper-plane-o" size="20px" margin="0 0 0 10px" onClick={handlerCreateComment} />
         </div>
       ) : null}
-      <div className="list-comments"></div>
+      <div className="list-comments">
+        {comments.map((comment) => {
+          return <div>{comment.content}</div>
+        })}
+      </div>
     </div>
   )
 }
