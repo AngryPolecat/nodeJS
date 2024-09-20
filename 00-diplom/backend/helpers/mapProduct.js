@@ -1,3 +1,6 @@
+const mongoose = require('mongoose')
+const mapComment = require('../helpers/mapComment')
+
 const mapProduct = (product) => {
   return {
     id: product.id,
@@ -7,7 +10,7 @@ const mapProduct = (product) => {
     cost: product.cost,
     description: product.description,
     createdAt: product.createdAt.toLocaleDateString().padStart(10, '0'),
-    comments: product.comments,
+    comments: product.comments.map((comment) => mapComment(comment)),
     group: product.group,
   }
 }

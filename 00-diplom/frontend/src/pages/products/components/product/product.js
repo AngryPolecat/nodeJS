@@ -1,10 +1,10 @@
-import { Icon } from '../../../../components';
-import styled from 'styled-components';
+import { Icon } from '../../../../components'
+import styled from 'styled-components'
 
 const ProductContainer = ({ className, product: { id, title, url, description, cost, count, comments }, groupId, ...props }) => {
   const handlerAddToBasket = (event, productId) => {
-    event.stopPropagation();
-  };
+    event.stopPropagation()
+  }
 
   return (
     <div className={className} {...props}>
@@ -34,8 +34,8 @@ const ProductContainer = ({ className, product: { id, title, url, description, c
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const Product = styled(ProductContainer)`
   display: flex;
@@ -98,4 +98,4 @@ export const Product = styled(ProductContainer)`
       flex-direction: row;
     }
   }
-`;
+`

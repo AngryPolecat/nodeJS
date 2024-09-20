@@ -1,21 +1,22 @@
-import { useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { userRoleSelector } from '../../../../selectors';
-import { ROLE } from '../../../../const';
-import { Icon } from '../../../../components';
-import styled from 'styled-components';
+import { useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { userRoleSelector } from '../../../../selectors'
+import { ROLE } from '../../../../const'
+import { Icon } from '../../../../components'
+import { Comment } from '../comment/comment'
+import styled from 'styled-components'
 
-const ProductContentContainer = ({ className, product: { title, url, description, count, cost } }) => {
-  const role = useSelector(userRoleSelector);
-  const navigate = useNavigate();
-  const location = useLocation();
+const ProductContentContainer = ({ className, groupId, product: { id, title, url, description, count, cost } }) => {
+  const role = useSelector(userRoleSelector)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   return (
     <div className={className}>
       <div className="buttons">
-        <Icon id="fa-shopping-cart" size="24px" margin="5px 0 0 15px" title="В корзину" />
         {role === ROLE.ADMIN ? (
           <>
+            <Icon id="fa-shopping-cart" size="24px" margin="5px 0 0 15px" title="В корзину" />
             <Icon id="fa-pencil-square-o" size="25px" margin="6px 0 0 15px" title="Редактировать товар" onClick={() => navigate(location.pathname + '/edit')} />
             <Icon id="fa-trash-o" size="24px" margin="5px 0 0 12px" title="Удалить товар" />
           </>
@@ -37,9 +38,11 @@ const ProductContentContainer = ({ className, product: { title, url, description
         </div>
         <div className="product-content">{description}</div>
       </div>
+      <hr />
+      <Comment />
     </div>
-  );
-};
+  )
+}
 
 export const ProductContent = styled(ProductContentContainer)`
   width: 1000px;
@@ -91,5 +94,10 @@ export const ProductContent = styled(ProductContentContainer)`
     display: flex;
     flex-direction: row;
     justify-content: end;
+    height: 20px;
   }
-`;
+
+  & hr {
+    margin: 20px 0;
+  }
+`
