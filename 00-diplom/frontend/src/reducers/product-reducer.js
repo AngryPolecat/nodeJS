@@ -23,6 +23,11 @@ export const productReducer = (state = initialProductState, action) => {
         ...initialProductState,
         group: action.payload,
       };
+    case ACTION_TYPE.ADD_COMMENT:
+      return {
+        ...state,
+        comments: [...state.comments, action.payload],
+      };
     default:
       return state;
   }

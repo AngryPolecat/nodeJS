@@ -1,33 +1,33 @@
-import { Routes, Route, useNavigate } from 'react-router-dom'
-import { Header, Footer, Authorization, Registration, Message, Icon } from './components'
-import { useLayoutEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Header, Footer, Authorization, Registration, Message, Icon } from './components';
+import { useLayoutEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // import { Modal, Error } from './components';
-import { setUser } from './actions'
+import { setUser } from './actions';
 // import { ERROR } from './const';
-import { Main, Users, Basket, Groups, Products, Product } from './pages'
-import { flagLoginSelector, flagRegisterSelector, messageSelector } from './selectors'
-import styled from 'styled-components'
+import { Main, Users, Basket, Groups, Products, Product } from './pages';
+import { flagLoginSelector, flagRegisterSelector, messageSelector } from './selectors';
+import styled from 'styled-components';
 
 const App = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const Page = styled.div`
   text-align: center;
   margin-top: 100px;
-`
+`;
 
 const ButtonBackContainer = ({ className }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <div className={className}>
       <Icon id="fa-hand-o-left" size="30px" margin="0 0 0 0" title="Назад" onClick={() => navigate(-1)} />
     </div>
-  )
-}
+  );
+};
 
 const ButtonBack = styled(ButtonBackContainer)`
   position: fixed;
@@ -39,26 +39,26 @@ const ButtonBack = styled(ButtonBackContainer)`
   color: white;
   padding: 10px;
   border-radius: 10px;
-`
+`;
 
 export const Shop = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const stateFlagLogin = useSelector(flagLoginSelector)
-  const stateFlagRegister = useSelector(flagRegisterSelector)
-  const message = useSelector(messageSelector)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const stateFlagLogin = useSelector(flagLoginSelector);
+  const stateFlagRegister = useSelector(flagRegisterSelector);
+  const message = useSelector(messageSelector);
 
   useLayoutEffect(() => {
-    const currentUserDataJSON = sessionStorage.getItem('userData')
+    const currentUserDataJSON = sessionStorage.getItem('userData');
 
     if (!currentUserDataJSON) {
-      return
+      return;
     }
 
-    const currentUserData = JSON.parse(currentUserDataJSON)
+    const currentUserData = JSON.parse(currentUserDataJSON);
 
-    dispatch(setUser({ ...currentUserData, roleId: Number(currentUserData.roleId) }))
-  }, [dispatch, navigate])
+    dispatch(setUser({ ...currentUserData, roleId: Number(currentUserData.roleId) }));
+  }, [dispatch, navigate]);
 
   return (
     <App>
@@ -81,8 +81,8 @@ export const Shop = () => {
       {message.status ? <Message text={message.text} /> : null}
       <Footer />
     </App>
-  )
-}
+  );
+};
 
 // // <Header />
 // //{' '}

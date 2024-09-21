@@ -9,3 +9,4 @@ export * from './open-message';
 export * from './set-product';
 export * from './reset-product';
 export * from './set-group';
+export * from './add-comment';
