@@ -10,13 +10,12 @@ const addComment = async (productId, commentData) => {
 };
 
 // удалить комментарий
-const deleteComment = async (id) => await Comment.deleteOne({ _id: id });
-
-// список комментариев
-const getComments = async (product) => await Comment.find({ product });
+const deleteComment = async (productId, commentId) => {
+  await Comment.deleteOne({ _id: commentId });
+  await Product.findByIdAndUpdate(productId, { $pull: { comments: commentId } });
+};
 
 module.exports = {
   addComment,
   deleteComment,
-  getComments,
 };

@@ -110,8 +110,7 @@ const ProductFormContainer = ({ className, product, groupId }) => {
   return (
     <div className={className}>
       <div className="buttons">
-        <Icon id="fa-floppy-o" size="24px" margin="5px 0 0 15px" title="Сохранить товар" onClick={handlerSaveProduct} />
-        <Icon id="fa-trash-o" size="24px" margin="5px 0 0 15px" title="Удалить товар" />
+        <Icon id="fa-floppy-o" size="24px" margin="5px 0 0 0" title="Сохранить товар" onClick={handlerSaveProduct} />
       </div>
       <Input type="text" placeholder="Наименование товара" size="14px" name="title" value={title} onChange={handlerChangeTitle} />
       <div className="groups-container">

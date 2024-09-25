@@ -1,6 +1,7 @@
 const Product = require('../models/Product');
 const SETTINGS = require('../const/settings');
 const mapProduct = require('../helpers/mapProduct');
+const { deleteComment } = require('./comment');
 
 // добавить продукт
 const addProduct = async (product) => {
@@ -13,7 +14,16 @@ const addProduct = async (product) => {
 };
 
 // удалить продукт
-const deleteProduct = async (id) => await Product.deleteOne({ _id: id });
+const deleteProduct = async (id) => {
+  const product = await getProduct(id);
+  const comments = product[0].comments;
+  if (comments.length) {
+    comments.map((comment) => {
+      deleteComment(id, comment.id);
+    });
+  }
+  await Product.deleteOne({ _id: id });
+};
 
 // поправить продукт
 const updateProduct = async (id, product) =>

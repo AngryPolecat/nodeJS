@@ -2,8 +2,8 @@ const express = require('express');
 const auth = require('../middlewares/auth');
 const hasRole = require('../middlewares/hasRole');
 const { addGroup, getGroups, updateGroup, deleteGroup } = require('../controllers/catalog');
-const { addProduct, getProducts, getProduct, updateProduct } = require('../controllers/product');
-const { addComment } = require('../controllers/comment');
+const { addProduct, getProducts, getProduct, updateProduct, deleteProduct } = require('../controllers/product');
+const { addComment, deleteComment } = require('../controllers/comment');
 const mapProduct = require('../helpers/mapProduct');
 const mapComment = require('../helpers/mapComment');
 const ROLES = require('../const/roles');
@@ -124,6 +124,24 @@ router.patch('/:id/products/:productId', auth, hasRole([ROLES.ADMIN]), async (re
 router.delete('/:id', auth, hasRole([ROLES.ADMIN]), async (req, res) => {
   try {
     await deleteGroup(req.params.id);
+    res.send({ error: null });
+  } catch (e) {
+    res.send({ error: e.message });
+  }
+});
+
+router.delete('/:id/products/:productId', auth, hasRole([ROLES.ADMIN]), async (req, res) => {
+  try {
+    await deleteProduct(req.params.productId);
+    res.send({ error: null });
+  } catch (e) {
+    res.send({ error: e.message });
+  }
+});
+
+router.delete('/:groupId/products/:productId/comments/:commentId', auth, hasRole([ROLES.ADMIN, ROLES.MODERATOR]), async (req, res) => {
+  try {
+    await deleteComment(req.params.productId, req.params.commentId);
     res.send({ error: null });
   } catch (e) {
     res.send({ error: e.message });

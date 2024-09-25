@@ -10,3 +10,4 @@ export * from './set-product';
 export * from './reset-product';
 export * from './set-group';
 export * from './add-comment';
+export * from './remove-comment';

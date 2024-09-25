@@ -1,15 +1,30 @@
-import { useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { userRoleSelector } from '../../../../selectors'
-import { ROLE } from '../../../../const'
-import { Icon } from '../../../../components'
-import { Comment } from '../comment/comment'
-import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { userRoleSelector } from '../../../../selectors';
+import { ROLE } from '../../../../const';
+import { Icon } from '../../../../components';
+import { Comment } from '../comment/comment';
+import { request } from '../../../../utils';
+import { openMessage, CLOSE_MESSAGE } from '../../../../actions';
+import { SETTINGS } from '../../../../const';
+import styled from 'styled-components';
 
 const ProductContentContainer = ({ className, groupId, product: { id, title, url, description, count, cost } }) => {
-  const role = useSelector(userRoleSelector)
-  const navigate = useNavigate()
-  const location = useLocation()
+  const role = useSelector(userRoleSelector);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handlerRemoveProduct = (productId) => {
+    request(`/groups/${groupId}/products/${productId}`, 'DELETE').then((result) => {
+      if (result.error) {
+        dispatch(openMessage(result.error));
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+        return;
+      }
+      navigate(`/groups/${groupId}`);
+    });
+  };
 
   return (
     <div className={className}>
@@ -18,7 +33,7 @@ const ProductContentContainer = ({ className, groupId, product: { id, title, url
           <>
             <Icon id="fa-shopping-cart" size="24px" margin="5px 0 0 15px" title="В корзину" />
             <Icon id="fa-pencil-square-o" size="25px" margin="6px 0 0 15px" title="Редактировать товар" onClick={() => navigate(location.pathname + '/edit')} />
-            <Icon id="fa-trash-o" size="24px" margin="5px 0 0 12px" title="Удалить товар" />
+            <Icon id="fa-trash-o" size="24px" margin="5px 0 0 12px" title="Удалить товар" onClick={() => handlerRemoveProduct(id)} />
           </>
         ) : null}
       </div>
@@ -41,8 +56,8 @@ const ProductContentContainer = ({ className, groupId, product: { id, title, url
       <hr />
       <Comment />
     </div>
-  )
-}
+  );
+};
 
 export const ProductContent = styled(ProductContentContainer)`
   width: 1000px;
@@ -100,4 +115,4 @@ export const ProductContent = styled(ProductContentContainer)`
   & hr {
     margin: 20px 0;
   }
-`
+`;
