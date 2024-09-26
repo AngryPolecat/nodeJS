@@ -7,10 +7,30 @@ const initialAppState = {
     status: false,
     text: '',
   },
+  modal: {
+    isOpen: false,
+    text: '',
+    onConfirm: () => {},
+    onCancel: () => {},
+  },
 };
 
 export const appReducer = (state = initialAppState, action) => {
   switch (action.type) {
+    case ACTION_TYPE.CLOSE_MODAL:
+      return {
+        ...state,
+        modal: initialAppState.modal,
+      };
+    case ACTION_TYPE.OPEN_MODAL:
+      return {
+        ...state,
+        modal: {
+          ...state.modal,
+          ...action.payload,
+          isOpen: true,
+        },
+      };
     case ACTION_TYPE.LOGIN:
       return {
         ...state,

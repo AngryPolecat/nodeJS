@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { SETTINGS } from '../../const';
@@ -8,28 +8,34 @@ import { Group } from './components/group/group';
 import { Pagination } from '../../components';
 import styled from 'styled-components';
 
-const MainContainer = ({ className }) => {
+const MainContainer = ({ className, error }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [groups, setGroups] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
 
+  useLayoutEffect(() => {
+    if (error) {
+      dispatch(openMessage(error));
+      setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+    }
+  }, [dispatch, error]);
+
   useEffect(() => {
     request(`/groups?page=${page}&limit=${SETTINGS.PAGINATION_LIMIT}`).then((groups) => {
       if (groups.error) {
         dispatch(openMessage(groups.error));
         setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
-        return;
       }
       setGroups(groups.data);
       setLastPage(groups.lastPage);
     });
-  }, [dispatch, page]);
+  }, [dispatch, page, navigate]);
 
   const handlerClickGroup = (group) => {
     dispatch(setGroup(group));
-    navigate(`/groups/${group.id}`);
+    navigate(`/groups/${group.id}/products`);
   };
 
   return (

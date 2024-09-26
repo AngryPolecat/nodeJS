@@ -2,9 +2,9 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Header, Footer, Authorization, Registration, Message, Icon } from './components';
 import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Modal, Error } from './components';
+import { Modal } from './components';
+import { ERROR } from './const';
 import { setUser } from './actions';
-// import { ERROR } from './const';
 import { Main, Users, Basket, Groups, Products, Product } from './pages';
 import { flagLoginSelector, flagRegisterSelector, messageSelector } from './selectors';
 import styled from 'styled-components';
@@ -72,34 +72,17 @@ export const Shop = () => {
           <Route path="/basket" element={<Basket />} />
           <Route path="/users" element={<Users />} />
           <Route path="/groups" element={<Groups />} />
-          <Route path="/groups/:groupId" element={<Products />} />
+          <Route path="/groups/:groupId/products" element={<Products />} />
           <Route path="/groups/:groupId/products/new" element={<Product />} />
           <Route path="/groups/:groupId/products/:productId" element={<Product />} />
           <Route path="/groups/:groupId/products/:productId/edit" element={<Product />} />
+          <Route path="/403" element={<Main error={ERROR.ACCESS_DENIED} />} />
+          <Route path="*" element={<Main error={ERROR.PAGE_NOT_EXIST} />} />
         </Routes>
       </Page>
       {message.status ? <Message text={message.text} /> : null}
       <Footer />
+      <Modal />
     </App>
   );
 };
-
-// // <Header />
-// //{' '}
-// <Page>
-//   //{' '}
-//   <Routes>
-//     // <Route path="/" element={<Main />} />
-//     // <Route path="/login" element={<Authorization />} />
-//     // <Route path="/register" element={<Registration />} />
-//     // <Route path="/post" element={<Post />} />
-//     // <Route path="/post/:postId" element={<Post />} />
-//     // <Route path="/post/:postId/edit" element={<Post />} />
-//     // <Route path="/users" element={<Users />} />
-//     // <Route path="*" element={<Error error={ERROR.PAGE_NOT_EXIST} />} />
-//     //{' '}
-//   </Routes>
-//   //{' '}
-// </Page>
-// // <Footer />
-// // <Modal />

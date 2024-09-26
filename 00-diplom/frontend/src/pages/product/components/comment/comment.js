@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { request } from '../../../../utils';
-import { openMessage, CLOSE_MESSAGE, addComment, removeComment } from '../../../../actions';
+import { openMessage, CLOSE_MESSAGE, addComment, removeComment, openModal, CLOSE_MODAL } from '../../../../actions';
 import { SETTINGS, ROLE } from '../../../../const';
 import { Icon, Textarea } from '../../../../components';
 import { userRoleSelector, productSelector } from '../../../../selectors';
@@ -27,14 +27,23 @@ const CommentContainer = ({ className }) => {
   };
 
   const handlerRemoveComment = (commentId) => {
-    request(`/groups/${group}/products/${id}/comments/${commentId}`, 'DELETE').then((result) => {
-      if (result.error) {
-        dispatch(openMessage(result.error));
-        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
-        return;
-      }
-      dispatch(removeComment(commentId));
-    });
+    dispatch(
+      openModal({
+        text: 'Удалить комментарий?',
+        onConfirm: () => {
+          request(`/groups/${group}/products/${id}/comments/${commentId}`, 'DELETE').then((result) => {
+            dispatch(CLOSE_MODAL);
+            if (result.error) {
+              dispatch(openMessage(result.error));
+              setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+              return;
+            }
+            dispatch(removeComment(commentId));
+          });
+        },
+        onCancel: () => dispatch(CLOSE_MODAL),
+      })
+    );
   };
 
   const isModerator = role === ROLE.ADMIN || role === ROLE.MODERATOR ? true : false;
@@ -54,7 +63,7 @@ const CommentContainer = ({ className }) => {
           {comments.map(({ id, content, author, createdAt }) => (
             <li key={id}>
               <div className="comment">
-                <div>
+                <div className="author-comment">
                   <strong>{author}</strong>
                 </div>
                 <div>{createdAt}</div>
@@ -109,6 +118,10 @@ export const Comment = styled(CommentContainer)`
         display: flex;
         flex-direction: row;
         justify-content: left;
+
+        & .author-comment {
+          width: 100px;
+        }
 
         & div {
           margin: 0 10px;

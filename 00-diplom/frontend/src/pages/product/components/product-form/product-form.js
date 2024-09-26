@@ -1,11 +1,12 @@
 import { useEffect, useState, useLayoutEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { Input, Icon, Textarea } from '../../../../components';
 import { openMessage, CLOSE_MESSAGE, setProduct } from '../../../../actions';
-import { SETTINGS } from '../../../../const';
+import { SETTINGS, ROLE } from '../../../../const';
 import { request } from '../../../../utils';
 //import { productSelector } from '../../../../selectors';
+import { userRoleSelector } from '../../../../selectors';
 import styled from 'styled-components';
 
 // const initialFormState = {
@@ -42,6 +43,7 @@ const ProductFormContainer = ({ className, product, groupId }) => {
   const [groups, setGroups] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const role = useSelector(userRoleSelector);
 
   useLayoutEffect(() => {
     setTitle(product.title);
@@ -106,6 +108,10 @@ const ProductFormContainer = ({ className, product, groupId }) => {
   const handlerChangeDescription = ({ target }) => {
     setDescription(target.value);
   };
+
+  if (role !== ROLE.ADMIN) {
+    return <Navigate to="/403" />;
+  }
 
   return (
     <div className={className}>

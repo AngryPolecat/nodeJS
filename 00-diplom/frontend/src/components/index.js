@@ -9,3 +9,4 @@ export * from './registration/registration';
 export * from './message/message';
 export * from './textarea/textarea';
 export * from './pagination/pagination';
+export * from './modal/modal';

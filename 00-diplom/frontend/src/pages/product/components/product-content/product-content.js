@@ -5,7 +5,7 @@ import { ROLE } from '../../../../const';
 import { Icon } from '../../../../components';
 import { Comment } from '../comment/comment';
 import { request } from '../../../../utils';
-import { openMessage, CLOSE_MESSAGE } from '../../../../actions';
+import { openMessage, CLOSE_MESSAGE, openModal, CLOSE_MODAL } from '../../../../actions';
 import { SETTINGS } from '../../../../const';
 import styled from 'styled-components';
 
@@ -16,14 +16,23 @@ const ProductContentContainer = ({ className, groupId, product: { id, title, url
   const location = useLocation();
 
   const handlerRemoveProduct = (productId) => {
-    request(`/groups/${groupId}/products/${productId}`, 'DELETE').then((result) => {
-      if (result.error) {
-        dispatch(openMessage(result.error));
-        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
-        return;
-      }
-      navigate(`/groups/${groupId}`);
-    });
+    dispatch(
+      openModal({
+        text: 'Удалить товар?',
+        onConfirm: () => {
+          request(`/groups/${groupId}/products/${productId}`, 'DELETE').then((result) => {
+            dispatch(CLOSE_MODAL);
+            if (result.error) {
+              dispatch(openMessage(result.error));
+              setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+              return;
+            }
+            navigate(`/groups/${groupId}/products`);
+          });
+        },
+        onCancel: () => dispatch(CLOSE_MODAL),
+      })
+    );
   };
 
   return (

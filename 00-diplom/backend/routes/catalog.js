@@ -24,6 +24,7 @@ router.get('/:id/products', async (req, res) => {
     const { products, lastPage } = await getProducts(req.params.id, req.query.limit, req.query.page);
     res.send({ data: products, lastPage });
   } catch (e) {
+    console.log(e);
     res.send({ error: e.message });
   }
 });
@@ -84,14 +85,14 @@ router.post('/:id/products/:productId/comments', auth, async (req, res) => {
   // res.send({ data: mapComment(comment) })
 });
 
-router.get('/:id'),
-  async (req, res) => {
-    try {
-      res.send({ data: products });
-    } catch (e) {
-      res.send({ error: e.message });
-    }
-  };
+// router.get('/:id'),
+//   async (req, res) => {
+//     try {
+//       res.send({ data: products });
+//     } catch (e) {
+//       res.send({ error: e.message });
+//     }
+//   };
 
 router.patch('/:id', auth, hasRole([ROLES.ADMIN]), async (req, res) => {
   try {

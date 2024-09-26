@@ -5,3 +5,8 @@ export * from './flag-register-selector';
 export * from './message-selector';
 export * from './product-selector';
 export * from './group-selector';
+export * from './modal-is-open-selector';
+export * from './modal-on-cancel-selector';
+export * from './modal-on-confirm-selector';
+export * from './modal-selector';
+export * from './modal-text-selector';

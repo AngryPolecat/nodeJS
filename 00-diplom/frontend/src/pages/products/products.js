@@ -23,12 +23,13 @@ const ProductsContainer = ({ className }) => {
       if (products.error) {
         dispatch(openMessage(products.error));
         setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
-        return;
+        //закомментировать если нужно узнать внутреннюю ошибку
+        navigate('/404');
       }
       setProducts(products.data);
       setLastPage(products.lastPage);
     });
-  }, [dispatch, params.groupId, page]);
+  }, [dispatch, params.groupId, page, navigate]);
 
   const handlerClickProduct = (productId) => {
     navigate(`/groups/${params.groupId}/products/${productId}`);

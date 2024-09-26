@@ -11,3 +11,5 @@ export * from './reset-product';
 export * from './set-group';
 export * from './add-comment';
 export * from './remove-comment';
+export * from './close-modal';
+export * from './open-modal';
