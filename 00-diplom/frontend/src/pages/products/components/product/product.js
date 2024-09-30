@@ -1,10 +1,26 @@
-import { Icon } from '../../../../components'
-import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux';
+import { Icon } from '../../../../components';
+import { userRoleSelector } from '../../../../selectors';
+import { ROLE, SETTINGS } from '../../../../const';
+import { request } from '../../../../utils';
+import { openMessage, CLOSE_MESSAGE } from '../../../../actions';
+import styled from 'styled-components';
 
-const ProductContainer = ({ className, product: { id, title, url, description, cost, count, comments }, groupId, ...props }) => {
+const ProductContainer = ({ className, product: { id, title, url, cost, count, comments }, groupId, ...props }) => {
+  const role = useSelector(userRoleSelector);
+  const dispatch = useDispatch();
+
   const handlerAddToBasket = (event, productId) => {
-    event.stopPropagation()
-  }
+    request('/basket', 'POST', { product: productId }).then((result) => {
+      const message = result.error ? result.error : 'Товар добавлен в корзину';
+      const error = result.error ? true : false;
+      dispatch(openMessage(message, error));
+      setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+    });
+    event.stopPropagation();
+  };
+
+  const isGuest = role === ROLE.GUEST ? true : false;
 
   return (
     <div className={className} {...props}>
@@ -28,14 +44,16 @@ const ProductContainer = ({ className, product: { id, title, url, description, c
               <span>{comments.length}</span>
             </div>
           </div>
-          <div>
-            <Icon id="fa-shopping-cart" size="30px" margin="35px 0 0 5px" title="В корзину" onClick={(event) => handlerAddToBasket(event, id)} />
-          </div>
+          {!isGuest ? (
+            <div>
+              <Icon id="fa-shopping-cart" size="30px" margin="35px 0 0 5px" title="В корзину" onClick={(event) => handlerAddToBasket(event, id)} />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const Product = styled(ProductContainer)`
   display: flex;
@@ -98,4 +116,4 @@ export const Product = styled(ProductContainer)`
       flex-direction: row;
     }
   }
-`
+`;

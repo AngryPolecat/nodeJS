@@ -6,6 +6,7 @@ const initialAppState = {
   message: {
     status: false,
     text: '',
+    error: false,
   },
   modal: {
     isOpen: false,
@@ -54,16 +55,14 @@ export const appReducer = (state = initialAppState, action) => {
         ...state,
         message: {
           status: true,
-          text: action.payload,
+          text: action.payload.text,
+          error: action.payload.error,
         },
       };
     case ACTION_TYPE.CLOSE_MESSAGE:
       return {
         ...state,
-        message: {
-          status: false,
-          text: '',
-        },
+        message: initialAppState.message,
       };
     default:
       return state;

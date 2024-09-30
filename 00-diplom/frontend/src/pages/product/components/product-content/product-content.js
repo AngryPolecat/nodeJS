@@ -35,12 +35,21 @@ const ProductContentContainer = ({ className, groupId, product: { id, title, url
     );
   };
 
+  const handlerAddToBasket = (productId) => {
+    request('/basket', 'POST', { product: productId }).then((result) => {
+      const message = result.error ? result.error : 'Товар добавлен в корзину';
+      const error = result.error ? true : false;
+      dispatch(openMessage(message, error));
+      setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+    });
+  };
+
   return (
     <div className={className}>
       <div className="buttons">
         {role === ROLE.ADMIN ? (
           <>
-            <Icon id="fa-shopping-cart" size="24px" margin="5px 0 0 15px" title="В корзину" />
+            <Icon id="fa-shopping-cart" size="24px" margin="5px 0 0 15px" title="В корзину" onClick={() => handlerAddToBasket(id)} />
             <Icon id="fa-pencil-square-o" size="25px" margin="6px 0 0 15px" title="Редактировать товар" onClick={() => navigate(location.pathname + '/edit')} />
             <Icon id="fa-trash-o" size="24px" margin="5px 0 0 12px" title="Удалить товар" onClick={() => handlerRemoveProduct(id)} />
           </>

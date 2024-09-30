@@ -80,7 +80,7 @@ export const Shop = () => {
           <Route path="*" element={<Main error={ERROR.PAGE_NOT_EXIST} />} />
         </Routes>
       </Page>
-      {message.status ? <Message text={message.text} /> : null}
+      {message.status ? <Message text={message.text} error={message.error} /> : null}
       <Footer />
       <Modal />
     </App>
