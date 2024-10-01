@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const BasketScheme = mongoose.Schema(
   {
@@ -15,8 +15,8 @@ const BasketScheme = mongoose.Schema(
     ],
   },
   { timestamps: true }
-);
+)
 
-const Basket = mongoose.model('Basket', BasketScheme);
+const Basket = mongoose.model('Basket', BasketScheme)
 
-module.exports = Basket;
+module.exports = Basket

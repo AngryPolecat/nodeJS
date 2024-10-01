@@ -1,42 +1,42 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { SETTINGS } from '../../const';
-import { request } from '../../utils';
-import { openMessage, CLOSE_MESSAGE, setGroup } from '../../actions';
-import { Group } from './components/group/group';
-import { Pagination } from '../../components';
-import styled from 'styled-components';
+import { useEffect, useLayoutEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { SETTINGS } from '../../const'
+import { request } from '../../utils'
+import { openMessage, CLOSE_MESSAGE, setGroup } from '../../actions'
+import { Group } from './components/group/group'
+import { Pagination } from '../../components'
+import styled from 'styled-components'
 
 const MainContainer = ({ className, error }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [groups, setGroups] = useState([]);
-  const [page, setPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [groups, setGroups] = useState([])
+  const [page, setPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1)
 
   useLayoutEffect(() => {
     if (error) {
-      dispatch(openMessage(error));
-      setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+      dispatch(openMessage(error))
+      setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
     }
-  }, [dispatch, error]);
+  }, [dispatch, error])
 
   useEffect(() => {
     request(`/groups?page=${page}&limit=${SETTINGS.PAGINATION_LIMIT}`).then((groups) => {
       if (groups.error) {
-        dispatch(openMessage(groups.error));
-        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+        dispatch(openMessage(groups.error))
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
       }
-      setGroups(groups.data);
-      setLastPage(groups.lastPage);
-    });
-  }, [dispatch, page, navigate]);
+      setGroups(groups.data)
+      setLastPage(groups.lastPage)
+    })
+  }, [dispatch, page, navigate])
 
   const handlerClickGroup = (group) => {
-    dispatch(setGroup(group));
-    navigate(`/groups/${group.id}/products`);
-  };
+    dispatch(setGroup(group))
+    navigate(`/groups/${group.id}/products`)
+  }
 
   return (
     <div className={className}>
@@ -49,8 +49,8 @@ const MainContainer = ({ className, error }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const Main = styled(MainContainer)`
   width: 1000px;
@@ -62,4 +62,4 @@ export const Main = styled(MainContainer)`
     padding: 0 15px;
     flex-wrap: wrap;
   }
-`;
+`

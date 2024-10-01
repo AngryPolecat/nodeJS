@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { setUser, REGISTER, WAS_LOGIN } from '../../actions'
+import { setUser, REGISTER, WAS_LOGIN, setBasket, RESET_BASKET } from '../../actions'
 // import { useResetForm } from '../../hooks';
 import { request } from '../../utils'
 import { AuthError, Input, Icon, Button } from '../../components'
@@ -52,6 +52,14 @@ const AuthorizationContainer = ({ className }) => {
       dispatch(setUser(user))
       dispatch(WAS_LOGIN)
       sessionStorage.setItem('userData', JSON.stringify(user))
+
+      request('/basket', 'GET').then((basket) => {
+        if (basket.error) {
+          dispatch(RESET_BASKET)
+          return
+        }
+        dispatch(setBasket(basket.data))
+      })
     })
   }
 

@@ -1,50 +1,67 @@
-import { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { request } from '../../utils';
-import { Product } from './components/product/product';
-import { userRoleSelector } from '../../selectors';
-import { ROLE, SETTINGS } from '../../const';
-import { openMessage, CLOSE_MESSAGE } from '../../actions';
-import styled from 'styled-components';
+import { useEffect, useLayoutEffect, useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { request } from '../../utils'
+import { Product } from './components/product/product'
+import { userRoleSelector, basketSelector } from '../../selectors'
+import { ROLE, SETTINGS } from '../../const'
+import { openMessage, CLOSE_MESSAGE } from '../../actions'
+import { Icon } from '../../components'
+import styled from 'styled-components'
 
 const BasketContainer = ({ className }) => {
-  const [basket, setBasket] = useState([]);
-  const role = useSelector(userRoleSelector);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [totalPrice, setTotalPrice] = useState(0)
+  const role = useSelector(userRoleSelector)
+  const basket = useSelector(basketSelector)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    request('/basket', 'GET').then((basket) => {
-      if (basket.error) {
-        dispatch(openMessage(basket.error));
-        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
-        navigate('/');
-        return;
-      }
-      console.log(basket.data);
+  // useLayoutEffect(() => {
+  //   setTotalPrice(products.reduce((acc, product) => acc + product.cost, 0))
+  // }, [products])
 
-      setBasket(basket.data);
-    });
-  }, [dispatch, navigate]);
+  // const handlerRemoveProductFromBasket = (productId) => {
+  //   request('/basket', 'PATCH', { productId }).then((result) => {
+  //     if (result.error) {
+  //       dispatch(openMessage(result.error))
+  //       setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
+  //       return
+  //     }
+  //     // удаление из state
+  //     setProducts(products.filter((product) => product.id !== productId))
+  //   })
+  // }
 
   if (role === ROLE.GUEST) {
-    return <Navigate to="/403" />;
+    return <Navigate to="/403" />
   }
 
   return (
     <div className={className}>
       <h3>Корзина</h3>
       <ul>
-        {basket.map((product) => {
-          return <Product id={product.id} product={product} />;
-        })}
+        {basket.products.map((product) => (
+          <Product key={product.id} product={product} />
+        ))}
       </ul>
+      <div className="total-price">
+        Общая стоимость: {basket.totalCost}
+        <Icon id="fa-btc" size="16px" margin="0 0 0 0" />
+      </div>
     </div>
-  );
-};
+  )
+}
 
 export const Basket = styled(BasketContainer)`
   width: 1000px;
   margin: 0 auto;
-`;
+  margin-bottom: 60px;
+
+  & .total-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+`
