@@ -1,19 +1,19 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { userRoleSelector } from '../../../../selectors'
-import { ROLE } from '../../../../const'
-import { Icon } from '../../../../components'
-import { Comment } from '../comment/comment'
-import { request } from '../../../../utils'
-import { openMessage, CLOSE_MESSAGE, openModal, CLOSE_MODAL, addProduct } from '../../../../actions'
-import { SETTINGS } from '../../../../const'
-import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { userRoleSelector } from '../../../../selectors';
+import { ROLE } from '../../../../const';
+import { Icon } from '../../../../components';
+import { Comment } from '../comment/comment';
+import { request } from '../../../../utils';
+import { openMessage, CLOSE_MESSAGE, openModal, CLOSE_MODAL, setBasket } from '../../../../actions';
+import { SETTINGS } from '../../../../const';
+import styled from 'styled-components';
 
 const ProductContentContainer = ({ className, groupId, product: { id, title, url, description, count, cost } }) => {
-  const role = useSelector(userRoleSelector)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const location = useLocation()
+  const role = useSelector(userRoleSelector);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handlerRemoveProduct = (productId) => {
     dispatch(
@@ -21,30 +21,31 @@ const ProductContentContainer = ({ className, groupId, product: { id, title, url
         text: 'Удалить товар?',
         onConfirm: () => {
           request(`/groups/${groupId}/products/${productId}`, 'DELETE').then((result) => {
-            dispatch(CLOSE_MODAL)
+            dispatch(CLOSE_MODAL);
             if (result.error) {
-              dispatch(openMessage(result.error))
-              setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
-              return
+              dispatch(openMessage(result.error));
+              setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+              return;
             }
-            navigate(`/groups/${groupId}/products`)
-          })
+            navigate(`/groups/${groupId}/products`);
+          });
         },
         onCancel: () => dispatch(CLOSE_MODAL),
       })
-    )
-  }
+    );
+  };
 
   const handlerAddToBasket = (productId) => {
     request('/basket', 'POST', { product: productId }).then((products) => {
-      const message = products.error ? products.error : 'Товар добавлен в корзину'
-      const error = products.error ? true : false
-      dispatch(openMessage(message, error))
-      setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
-
-      console.log(products.data)
-    })
-  }
+      const message = products.error ? products.error : 'Товар добавлен в корзину';
+      const error = products.error ? true : false;
+      dispatch(openMessage(message, error));
+      setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+      if (!products.error) {
+        dispatch(setBasket(products.data));
+      }
+    });
+  };
 
   return (
     <div className={className}>
@@ -76,8 +77,8 @@ const ProductContentContainer = ({ className, groupId, product: { id, title, url
       <hr />
       <Comment />
     </div>
-  )
-}
+  );
+};
 
 export const ProductContent = styled(ProductContentContainer)`
   width: 1000px;
@@ -135,4 +136,4 @@ export const ProductContent = styled(ProductContentContainer)`
   & hr {
     margin: 20px 0;
   }
-`
+`;

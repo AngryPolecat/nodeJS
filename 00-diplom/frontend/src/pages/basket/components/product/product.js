@@ -1,14 +1,30 @@
-import { useState } from 'react'
-import { Icon, Input } from '../../../../components'
-import styled from 'styled-components'
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Icon, Input } from '../../../../components';
+import { request } from '../../../../utils';
+import { openMessage, CLOSE_MESSAGE, setBasket } from '../../../../actions';
+import { SETTINGS } from '../../../../const';
+import styled from 'styled-components';
 
-const ProductContainer = ({ className, product: { id, title, url, count, cost, group }, setTotalPrice, totalPrice, onRemoveProductFromBasket }) => {
-  const [productCount, setProductCount] = useState(1)
+const ProductContainer = ({ className, product: { id, title, url, count, cost, group } }) => {
+  const [productCount, setProductCount] = useState(1);
+  const dispatch = useDispatch();
 
   const handlerChangeCountProduct = ({ target }) => {
-    setProductCount(target.value)
-    setTotalPrice(totalPrice - cost + cost * target.value)
-  }
+    setProductCount(target.value);
+    //setTotalPrice(totalPrice - cost + cost * target.value);
+  };
+
+  const handlerRemoveProductFromBasket = (productId) => {
+    request('/basket', 'PATCH', { productId }).then((products) => {
+      if (products.error) {
+        dispatch(openMessage(products.error));
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
+        return;
+      }
+      dispatch(setBasket(products.data));
+    });
+  };
 
   return (
     <div className={className}>
@@ -31,12 +47,12 @@ const ProductContainer = ({ className, product: { id, title, url, count, cost, g
           <Icon id="fa-btc" size="16px" margin="0 0 0 0" />
         </div>
         <div className="buttons">
-          <Icon id="fa-trash-o" size="22px" margin="0 0 0 10px" onClick={onRemoveProductFromBasket} />
+          <Icon id="fa-trash-o" size="22px" margin="0 0 0 10px" onClick={() => handlerRemoveProductFromBasket(id)} />
         </div>
       </li>
     </div>
-  )
-}
+  );
+};
 
 export const Product = styled(ProductContainer)`
   display: flex;
@@ -101,4 +117,4 @@ export const Product = styled(ProductContainer)`
       justify-content: end;
     }
   }
-`
+`;
