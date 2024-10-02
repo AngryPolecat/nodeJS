@@ -1,30 +1,31 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Icon, Input } from '../../../../components';
-import { request } from '../../../../utils';
-import { openMessage, CLOSE_MESSAGE, setBasket } from '../../../../actions';
-import { SETTINGS } from '../../../../const';
-import styled from 'styled-components';
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { Icon, Input } from '../../../../components'
+import { request } from '../../../../utils'
+import { openMessage, CLOSE_MESSAGE, setBasket, changeCountProduct } from '../../../../actions'
+import { SETTINGS } from '../../../../const'
+import styled from 'styled-components'
 
-const ProductContainer = ({ className, product: { id, title, url, count, cost, group } }) => {
-  const [productCount, setProductCount] = useState(1);
-  const dispatch = useDispatch();
+const ProductContainer = ({ className, product: { id, title, url, count, cost, item, group } }) => {
+  const [productCount, setProductCount] = useState(item)
+  const dispatch = useDispatch()
 
   const handlerChangeCountProduct = ({ target }) => {
-    setProductCount(target.value);
+    setProductCount(target.value)
+    dispatch(changeCountProduct(id, target.value))
     //setTotalPrice(totalPrice - cost + cost * target.value);
-  };
+  }
 
   const handlerRemoveProductFromBasket = (productId) => {
     request('/basket', 'PATCH', { productId }).then((products) => {
       if (products.error) {
-        dispatch(openMessage(products.error));
-        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
-        return;
+        dispatch(openMessage(products.error))
+        setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT)
+        return
       }
-      dispatch(setBasket(products.data));
-    });
-  };
+      dispatch(setBasket(products.data))
+    })
+  }
 
   return (
     <div className={className}>
@@ -51,8 +52,8 @@ const ProductContainer = ({ className, product: { id, title, url, count, cost, g
         </div>
       </li>
     </div>
-  );
-};
+  )
+}
 
 export const Product = styled(ProductContainer)`
   display: flex;
@@ -117,4 +118,4 @@ export const Product = styled(ProductContainer)`
       justify-content: end;
     }
   }
-`;
+`

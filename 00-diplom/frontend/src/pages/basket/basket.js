@@ -1,17 +1,20 @@
-//import { useEffect, useLayoutEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useEffect, useLayoutEffect, useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 //import { request } from '../../utils';
-import { Product } from './components/product/product';
-import { userRoleSelector, basketSelector } from '../../selectors';
-import { ROLE } from '../../const';
+import { Product } from './components/product/product'
+import { userRoleSelector, basketSelector } from '../../selectors'
+import { ROLE } from '../../const'
 //import { openMessage, CLOSE_MESSAGE } from '../../actions';
-import { Icon } from '../../components';
-import styled from 'styled-components';
+import { Icon } from '../../components'
+import styled from 'styled-components'
 
 const BasketContainer = ({ className }) => {
-  const role = useSelector(userRoleSelector);
-  const basket = useSelector(basketSelector);
+  const role = useSelector(userRoleSelector)
+  const basket = useSelector(basketSelector)
+
+  console.log(basket)
+
   //const dispatch = useDispatch();
   //const navigate = useNavigate();
 
@@ -20,7 +23,7 @@ const BasketContainer = ({ className }) => {
   // }, [products])
 
   if (role === ROLE.GUEST) {
-    return <Navigate to="/403" />;
+    return <Navigate to="/403" />
   }
 
   return (
@@ -37,8 +40,8 @@ const BasketContainer = ({ className }) => {
         <Icon id="fa-btc" size="16px" margin="0 0 0 0" />
       </div>
     </div>
-  );
-};
+  )
+}
 
 export const Basket = styled(BasketContainer)`
   width: 1000px;
@@ -56,4 +59,4 @@ export const Basket = styled(BasketContainer)`
     font-weight: bold;
     margin-right: 10px;
   }
-`;
+`

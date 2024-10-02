@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const mapBasket = (product) => {
   return {
@@ -8,7 +8,8 @@ const mapBasket = (product) => {
     count: product.count,
     cost: product.cost,
     group: product.group.group,
-  };
-};
+    item: 1,
+  }
+}
 
-module.exports = mapBasket;
+module.exports = mapBasket
