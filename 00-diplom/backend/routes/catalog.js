@@ -2,8 +2,9 @@ const express = require('express');
 const auth = require('../middlewares/auth');
 const hasRole = require('../middlewares/hasRole');
 const { addGroup, getGroups, updateGroup, deleteGroup } = require('../controllers/catalog');
-const { addProduct, getProducts, getProduct, updateProduct, deleteProduct } = require('../controllers/product');
+const { addProduct, getProducts, getProduct, updateProduct, deleteProduct, buyProducts } = require('../controllers/product');
 const { addComment, deleteComment } = require('../controllers/comment');
+const { deleteBasket } = require('../controllers/basket');
 const mapProduct = require('../helpers/mapProduct');
 const mapComment = require('../helpers/mapComment');
 const ROLES = require('../const/roles');
@@ -24,7 +25,6 @@ router.get('/:id/products', async (req, res) => {
     const { products, lastPage } = await getProducts(req.params.id, req.query.limit, req.query.page);
     res.send({ data: products, lastPage });
   } catch (e) {
-    console.log(e);
     res.send({ error: e.message });
   }
 });
@@ -32,7 +32,7 @@ router.get('/:id/products', async (req, res) => {
 router.get('/:id/products/:productId', async (req, res) => {
   try {
     const product = await getProduct(req.params.productId);
-    res.send({ data: mapProduct(product[0]) });
+    res.send({ data: mapProduct(product) });
   } catch (e) {
     res.send({ error: e.message });
   }
@@ -77,12 +77,6 @@ router.post('/:id/products/:productId/comments', auth, async (req, res) => {
   } catch (e) {
     res.send({ error: e.message });
   }
-
-  // const comment = await addComment(req.params.productId, {
-  //   content: req.body.content,
-  //   author: req.user.id,
-  // })
-  // res.send({ data: mapComment(comment) })
 });
 
 // router.get('/:id'),
@@ -117,6 +111,16 @@ router.patch('/:id/products/:productId', auth, hasRole([ROLES.ADMIN]), async (re
       group: req.body.group,
     });
     res.send({ data: mapProduct(product) });
+  } catch (e) {
+    res.send({ error: e.message });
+  }
+});
+
+router.patch('/', auth, hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]), async (req, res) => {
+  try {
+    await buyProducts(req.body);
+    await deleteBasket(req.user.id);
+    res.send({ error: false });
   } catch (e) {
     res.send({ error: e.message });
   }

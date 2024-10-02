@@ -3,7 +3,7 @@ import { Icon } from '../../../../components';
 import { userRoleSelector } from '../../../../selectors';
 import { ROLE, SETTINGS } from '../../../../const';
 import { request } from '../../../../utils';
-import { openMessage, CLOSE_MESSAGE, setBasket } from '../../../../actions';
+import { openMessage, CLOSE_MESSAGE, addProduct } from '../../../../actions';
 import styled from 'styled-components';
 
 const ProductContainer = ({ className, product: { id, title, url, cost, count, comments }, groupId, ...props }) => {
@@ -11,13 +11,14 @@ const ProductContainer = ({ className, product: { id, title, url, cost, count, c
   const dispatch = useDispatch();
 
   const handlerAddToBasket = (event, productId) => {
-    request('/basket', 'POST', { product: productId }).then((products) => {
-      const message = products.error ? products.error : 'Товар добавлен в корзину';
-      const error = products.error ? true : false;
+    request('/basket', 'POST', { product: productId }).then((product) => {
+      const message = product.error ? product.error : 'Товар добавлен в корзину';
+      const error = product.error ? true : false;
       dispatch(openMessage(message, error));
       setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
-      if (!products.error) {
-        dispatch(setBasket(products.data));
+      if (!product.error && product.data) {
+        //dispatch(setBasket(product.data));
+        dispatch(addProduct(product.data));
       }
     });
     event.stopPropagation();
@@ -47,7 +48,7 @@ const ProductContainer = ({ className, product: { id, title, url, cost, count, c
               <span>{comments.length}</span>
             </div>
           </div>
-          {!isGuest ? (
+          {!isGuest && count > 0 ? (
             <div>
               <Icon id="fa-shopping-cart" size="30px" margin="35px 0 0 5px" title="В корзину" onClick={(event) => handlerAddToBasket(event, id)} />
             </div>

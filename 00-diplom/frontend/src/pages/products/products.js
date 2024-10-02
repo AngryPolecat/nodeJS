@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { request } from '../../utils';
-import { openMessage, CLOSE_MESSAGE } from '../../actions';
+import { openMessage, CLOSE_MESSAGE, TOGGLE_LOADER } from '../../actions';
 import { SETTINGS } from '../../const';
 import { Product } from './components/product/product';
 import { Pagination } from '../../components';
@@ -19,7 +19,9 @@ const ProductsContainer = ({ className }) => {
   const group = useSelector(groupSelector);
 
   useEffect(() => {
+    dispatch(TOGGLE_LOADER);
     request(`/groups/${params.groupId}/products?page=${page}&limit=${SETTINGS.PAGINATION_LIMIT_PRODUCT}`, 'GET').then((products) => {
+      dispatch(TOGGLE_LOADER);
       if (products.error) {
         dispatch(openMessage(products.error));
         setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);

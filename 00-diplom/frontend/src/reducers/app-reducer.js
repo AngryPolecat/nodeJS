@@ -14,10 +14,16 @@ const initialAppState = {
     onConfirm: () => {},
     onCancel: () => {},
   },
+  isLoading: false,
 };
 
 export const appReducer = (state = initialAppState, action) => {
   switch (action.type) {
+    case ACTION_TYPE.TOGGLE_LOADER:
+      return {
+        ...state,
+        isLoading: !state.isLoading,
+      };
     case ACTION_TYPE.CLOSE_MODAL:
       return {
         ...state,

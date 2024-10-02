@@ -1,12 +1,12 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Header, Footer, Authorization, Registration, Message, Icon } from './components';
 import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from './components';
+import { Header, Footer, Authorization, Registration, Message, Icon } from './components';
+import { Modal, Loader } from './components';
 import { ERROR } from './const';
 import { setUser } from './actions';
 import { Main, Users, Basket, Groups, Products, Product } from './pages';
-import { flagLoginSelector, flagRegisterSelector, messageSelector } from './selectors';
+import { flagLoginSelector, flagRegisterSelector, messageSelector, loaderSelector } from './selectors';
 import styled from 'styled-components';
 
 const App = styled.div`
@@ -47,6 +47,7 @@ export const Shop = () => {
   const stateFlagLogin = useSelector(flagLoginSelector);
   const stateFlagRegister = useSelector(flagRegisterSelector);
   const message = useSelector(messageSelector);
+  const loader = useSelector(loaderSelector);
 
   useLayoutEffect(() => {
     const currentUserDataJSON = sessionStorage.getItem('userData');
@@ -83,6 +84,7 @@ export const Shop = () => {
       {message.status ? <Message text={message.text} error={message.error} /> : null}
       <Footer />
       <Modal />
+      {loader ? <Loader /> : null}
     </App>
   );
 };

@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProductContent, ProductForm } from './components';
 import { request } from '../../utils';
-import { openMessage, CLOSE_MESSAGE, setProduct, resetProduct } from '../../actions';
+import { openMessage, CLOSE_MESSAGE, setProduct, resetProduct, TOGGLE_LOADER } from '../../actions';
 import { productSelector } from '../../selectors';
 import { SETTINGS } from '../../const';
 import styled from 'styled-components';
@@ -24,7 +24,9 @@ const ProductContainer = ({ className }) => {
 
   useEffect(() => {
     if (!isCreatingProduct) {
+      dispatch(TOGGLE_LOADER);
       request(`/groups/${params.groupId}/products/${params.productId}`, 'GET').then((product) => {
+        dispatch(TOGGLE_LOADER);
         if (product.error) {
           dispatch(openMessage(product.error));
           setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);

@@ -16,7 +16,7 @@ const addProduct = async (product) => {
 // удалить продукт
 const deleteProduct = async (id) => {
   const product = await getProduct(id);
-  const comments = product[0].comments;
+  const comments = product.comments;
   if (comments.length) {
     comments.map((comment) => {
       deleteComment(id, comment.id);
@@ -31,6 +31,12 @@ const updateProduct = async (id, product) =>
     path: 'comments',
     populate: 'author',
   });
+
+const buyProducts = async (products) => {
+  products.forEach(async (product) => {
+    await Product.findByIdAndUpdate(product.id, { $inc: { count: -product.count } }, { new: true });
+  });
+};
 
 // список продуктов
 const getProducts = async (group, limit = SETTINGS.MAX_PRODUCTS_ON_PAGE, page = 1) => {
@@ -54,7 +60,7 @@ const getProducts = async (group, limit = SETTINGS.MAX_PRODUCTS_ON_PAGE, page = 
 
 // получить продукт
 const getProduct = async (productId) =>
-  await Product.find({ _id: productId }).populate({
+  await Product.findById(productId).populate({
     path: 'comments',
     populate: 'author',
   });
@@ -65,4 +71,5 @@ module.exports = {
   updateProduct,
   getProducts,
   getProduct,
+  buyProducts,
 };

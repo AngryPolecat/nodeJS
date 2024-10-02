@@ -5,7 +5,7 @@ import { ROLE } from '../../../../const';
 import { Icon } from '../../../../components';
 import { Comment } from '../comment/comment';
 import { request } from '../../../../utils';
-import { openMessage, CLOSE_MESSAGE, openModal, CLOSE_MODAL, setBasket } from '../../../../actions';
+import { openMessage, CLOSE_MESSAGE, openModal, CLOSE_MODAL, addProduct } from '../../../../actions';
 import { SETTINGS } from '../../../../const';
 import styled from 'styled-components';
 
@@ -36,13 +36,13 @@ const ProductContentContainer = ({ className, groupId, product: { id, title, url
   };
 
   const handlerAddToBasket = (productId) => {
-    request('/basket', 'POST', { product: productId }).then((products) => {
-      const message = products.error ? products.error : 'Товар добавлен в корзину';
-      const error = products.error ? true : false;
+    request('/basket', 'POST', { product: productId }).then((product) => {
+      const message = product.error ? product.error : 'Товар добавлен в корзину';
+      const error = product.error ? true : false;
       dispatch(openMessage(message, error));
       setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
-      if (!products.error) {
-        dispatch(setBasket(products.data));
+      if (!product.error && product.data) {
+        dispatch(addProduct(product.data));
       }
     });
   };

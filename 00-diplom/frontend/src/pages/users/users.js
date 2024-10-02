@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { User } from './components/user/user';
 import { request } from '../../utils';
-import { openMessage, CLOSE_MESSAGE } from '../../actions';
+import { openMessage, CLOSE_MESSAGE, TOGGLE_LOADER } from '../../actions';
 import { SETTINGS, ROLE } from '../../const';
 import { userRoleSelector } from '../../selectors';
 import styled from 'styled-components';
@@ -17,7 +17,9 @@ const UsersContainer = ({ className }) => {
   const role = useSelector(userRoleSelector);
 
   useEffect(() => {
+    dispatch(TOGGLE_LOADER);
     Promise.all([request('/users', 'GET'), request('/users/roles', 'GET')]).then(([users, roles]) => {
+      dispatch(TOGGLE_LOADER);
       if (users.error || roles.error) {
         dispatch(openMessage(users.error || roles.error));
         setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);

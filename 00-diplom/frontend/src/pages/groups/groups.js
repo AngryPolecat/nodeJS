@@ -4,7 +4,7 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { request } from '../../utils';
 import { Group } from './components/group/group';
 import { Input, Icon } from '../../components';
-import { openMessage, CLOSE_MESSAGE } from '../../actions';
+import { openMessage, CLOSE_MESSAGE, TOGGLE_LOADER } from '../../actions';
 import { ROLE, SETTINGS } from '../../const';
 import { userRoleSelector } from '../../selectors';
 import styled from 'styled-components';
@@ -19,7 +19,9 @@ const GroupsContainer = ({ className }) => {
   const role = useSelector(userRoleSelector);
 
   useEffect(() => {
+    dispatch(TOGGLE_LOADER);
     request('/groups?limit=0', 'GET').then((groups) => {
+      dispatch(TOGGLE_LOADER);
       if (groups.error) {
         dispatch(openMessage(groups.error));
         setTimeout(() => dispatch(CLOSE_MESSAGE), SETTINGS.MESSAGE_OPENING_LIMIT);
