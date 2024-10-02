@@ -16,8 +16,6 @@ export const basketReducer = (state = initialBasketState, action) => {
         totalCost: action.payload.reduce((acc, product) => acc + product.cost * product.item, 0),
       }
     case ACTION_TYPE.CHANGE_COUNT_PRODUCT:
-      console.log(action.payload)
-
       return {
         ...state,
         products: state.products.map((product) => {
